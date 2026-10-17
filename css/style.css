@@ -405,7 +405,11 @@ button {
   margin: -1px 0 0 -14px;
   border-radius: 50px;
   background: var(--c-text);
-  transition: transform 0.5s var(--ease-out);
+  transition: transform 0.5s var(--ease-out), background-color 0.2s ease;
+}
+/* Hover (menu closed): bars turn #666666 */
+.nav:not(.is-open) .nav__toggle:hover span {
+  background: #666666;
 }
 .nav__toggle span:nth-child(1) {
   transform: translateY(-8px);
@@ -414,7 +418,7 @@ button {
   transform: translateY(8px);
 }
 .nav__toggle span:nth-child(2) {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, background-color 0.2s ease;
 }
 .nav.is-open .nav__toggle span:nth-child(1) {
   transform: rotate(45deg);
@@ -771,6 +775,8 @@ button {
 .intro {
   /* bottom 88px + the projects' 32px top padding = 120px from the logo strip to the thumbs */
   padding: 120px var(--gutter) 88px;
+  /* menu "Projects" (#about) lands with 24px above the headline: 120 - 96 */
+  scroll-margin-top: -96px;
   overflow: hidden;
 }
 .intro__inner {
@@ -2029,6 +2035,7 @@ html.is-preloading {
   }
   .intro {
     padding: 96px var(--gutter);
+    scroll-margin-top: -72px;
   }
   .intro__inner {
     gap: 16px;
@@ -2152,6 +2159,7 @@ html.is-preloading {
   /* Intro */
   .intro {
     padding: 32px var(--gutter);
+    scroll-margin-top: -8px;
   }
   .intro__inner {
     gap: 16px;
