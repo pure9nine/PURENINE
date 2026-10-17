@@ -140,6 +140,10 @@ Logo top-left (desktop: 32px from top, 40px tall, so it ends at 72px; tablet/pho
 
 `.claude/launch.json` has a `site` config (`python3 -m http.server 5173`). In the Claude desktop app it **fails** with "Operation not permitted" because the project lives in the Dropbox CloudStorage folder (the browser pane also can't load the CSS from `file://` there). Workaround that works: copy the site (`*.html css js assets`) into the session scratchpad, add a temporary `site-copy` config that runs `/bin/sh -c "cd <scratch>/site && exec python3 -m http.server 5174"` (with `"autoPort": false`), preview `http://localhost:5174/…`, then stop it and restore `launch.json`. Opening `index.html` directly in a normal browser also works (fonts are embedded for that reason).
 
+## Hosting (GitHub Pages)
+
+Repo `https://github.com/pure9nine/PURENINE` (public; Pages on private repos needs a paid plan). Pages deploys from branch `main`, folder `/ (root)`. Live at **https://pure9nine.github.io/PURENINE/** (pages: `…/studio.html`, `…/contact.html`, `…/activision.html`). Pushing to `main` redeploys in ~1 min. All asset links must stay **relative** (no leading `/`) because the site lives under the `/PURENINE/` subpath. A page at `folder/index.html` is served at `…/PURENINE/folder/` (its paths need `../`). Because the repo is public, everything in it is visible, including this file.
+
 ---
 
 ## Open items / placeholders before launch
