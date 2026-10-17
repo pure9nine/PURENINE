@@ -130,6 +130,7 @@ Logo top-left (desktop: 32px from top, 40px tall, so it ends at 72px; tablet/pho
 - Keep things looking like the rest of the site: same fonts, greens, mono labels, divider lines, corner radii.
 - Placeholder content is fine; Thomas swaps in real copy and images himself. Leave clear HTML comments where placeholders are.
 - After each CSS/JS change, bump the `?v=` cache version in all four HTML files.
+- **Never `git push`.** Thomas always pushes to GitHub manually. Commit only when asked, then say the commit is ready to push.
 - Report briefly what changed, in plain words, with any side effects (e.g. a shared class affecting two places).
 - **Approved as final (Oct 16, 2026):** the services icon animation (8-bit bob + animated inner parts). Don't change it unless asked.
 - **Kept (Oct 16, 2026):** the slow drift on the studio intro (tile pop added on top, then sped up on request).
