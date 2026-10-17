@@ -27,7 +27,7 @@ The layout started as a clone of the **Bungee** Framer template (bungee.framer.w
 | `portfolio/` | Source thumbnails (unused by the site; don't upload, don't delete) |
 | `robots.txt`, `sitemap.xml`, `llms.txt` | SEO / AI-crawler files for https://www.purenine.com. Sitemap lists `/`, `activision.html`, `studio.html`, `contact.html`, `llms.txt` |
 
-**Cache busting:** every CSS/JS link in the HTML files has `?v=NNN` (currently `?v=243`). Bump it in **all four** (`index.html`, `activision.html`, `contact.html`, `studio.html`) whenever CSS or JS changes. HTML-only changes don't need a bump.
+**Cache busting:** every CSS/JS link in the HTML files has `?v=NNN` (currently `?v=247`). Bump it in **all four** (`index.html`, `activision.html`, `contact.html`, `studio.html`) whenever CSS or JS changes. HTML-only changes don't need a bump.
 
 ---
 
@@ -68,7 +68,7 @@ The layout started as a clone of the **Bungee** Framer template (bungee.framer.w
 
 ## Navigation (same on every page)
 
-Logo top-left (desktop: 32px from top, 40px tall, so it ends at 72px; tablet/phone: centered in an 80px bar, ends at 60px), hamburger top-right. Full-screen dark menu: **Home / Projects / Studio (`studio.html`) / Contact (`contact.html`)**, then hello@purenine.com and LinkedIn / Instagram / Twitter. On non-home pages Home and Projects link to `index.html#top` / `index.html#projects`. Any menu link closes the menu.
+Logo top-left (desktop: 32px from top, 40px tall, so it ends at 72px; tablet/phone: centered in an 80px bar, ends at 60px), hamburger top-right. Full-screen dark menu: **Home / Projects / Studio (`studio.html`) / Contact (`contact.html`)**, then hello@purenine.com and LinkedIn / Instagram / Twitter. "Projects" links to `#about` (the About section, not the grid); `.intro` has a `scroll-margin-top` so it lands with **24px** above the "PURENINE is the design collective…" headline (desktop -96px, tablet -72px, phone -8px, matched to each breakpoint's top padding). On non-home pages Home and Projects link to `index.html#top` / `index.html#about`. Hamburger bars turn `#666666` on hover while the menu is closed (0.2s). Any menu link closes the menu.
 
 **Contact links:** menu "Contact", footer "Contact" and the footer green logo badge all go to `contact.html`. Email links (menu email) stay `mailto:`.
 
