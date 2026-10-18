@@ -1896,17 +1896,31 @@ button {
 }
 
 /* ==========================================================================
-   Page transition: a simple 0.6s crossfade between pages (back button too).
+   Page transition: a quick fade between pages (back button too).
    Browsers with cross-page View Transitions (Chrome/Edge 126+, Safari 18.2+,
    served over http) crossfade the real pages; others use the white veil below.
    ========================================================================== */
 @view-transition {
   navigation: auto;
 }
-::view-transition-old(root),
+/* Old page fades out quickly, the new one fades in just after, so the two
+   pages barely overlap (no ghosted double text mid-fade) */
+::view-transition-old(root) {
+  animation: vt-out 0.25s ease both;
+}
 ::view-transition-new(root) {
-  animation-duration: 0.6s;
-  animation-timing-function: ease;
+  animation: vt-in 0.4s ease 0.15s both;
+}
+@keyframes vt-out {
+  to { opacity: 0; }
+}
+@keyframes vt-in {
+  from { opacity: 0; }
+}
+/* Menu closing instantly (page restored by Back with the menu open) */
+.nav.is-instant,
+.nav.is-instant * {
+  transition: none !important;
 }
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(root),

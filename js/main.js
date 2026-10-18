@@ -47,10 +47,30 @@
       setOpen(!nav.classList.contains('is-open'));
     });
 
-    // Any menu link closes the menu, including ones that leave the page, so the
-    // Back button never returns to a page with the menu still open
+    // In-page menu links (Projects on the homepage, mail, social) close the menu.
+    // Links to another page of the site leave it open: closing it would start its
+    // closing animation, and the page crossfade would catch it half-closed (a grey
+    // band with ghosted menu text). The menu then fades straight into the new page.
     panel.addEventListener('click', function (e) {
-      if (e.target.closest('a')) setOpen(false);
+      var a = e.target.closest('a');
+      if (!a) return;
+      var leaving = false;
+      try {
+        var url = new URL(a.getAttribute('href'), location.href);
+        leaving = url.protocol === location.protocol && url.pathname !== location.pathname &&
+          (!a.target || a.target === '_self');
+      } catch (err) {}
+      if (!leaving) setOpen(false);
+    });
+
+    // Back/forward restoring this page from the browser's cache: close the menu
+    // instantly, so it never comes back open
+    window.addEventListener('pageshow', function (e) {
+      if (!e.persisted || !nav.classList.contains('is-open')) return;
+      nav.classList.add('is-instant');
+      setOpen(false);
+      void nav.offsetWidth;
+      requestAnimationFrame(function () { nav.classList.remove('is-instant'); });
     });
 
     doc.addEventListener('keydown', function (e) {
