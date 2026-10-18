@@ -1254,6 +1254,7 @@ button {
   border-radius: 32px;
   overflow: hidden;
   background: var(--c-surface);
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.12); /* same as the client notes panel */
 }
 /* Gradient box per service with its 160px icon in the center.
    The background fades in (::before); the icon still switches instantly. */
@@ -1409,15 +1410,38 @@ button {
 .notes {
   padding-block: var(--section-gap);
 }
-/* Dark wall of past work behind the quotes, with a 20% black layer on top;
-   the grey shows while it loads */
+/* Pale green gradient panel (from Gradient2.svg with its 30% white layer baked in: #edffba at the top-left to #f9ffe9
+   at 71%, toward the bottom-right). The gradient sits on an oversized layer that
+   drifts slowly back and forth, so the light shifts across the panel. Transform only. */
 .notes__box {
-  padding: 280px 32px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 160px 32px;
   border-radius: 40px;
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    var(--c-surface) url("../assets/images/quotes-bg.jpg") center / cover no-repeat;
-  color: #fff;
+  background: #f9ffe9;
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.12);
+  color: var(--c-text);
+}
+.notes__box::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  z-index: -1;
+  background: linear-gradient(133deg, #edffba 0%, #edffba 20%, #f9ffe9 62%, #f9ffe9 100%);
+  animation: notes-glow 12s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes notes-glow {
+  0%   { transform: translate(-12%, -10%) rotate(0deg); }
+  100% { transform: translate(12%, 10%) rotate(8deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .notes__box::before {
+    animation: none;
+    background: linear-gradient(133deg, #edffba 0%, #f9ffe9 71%);
+    inset: 0;
+  }
 }
 @media (max-width: 809.98px) {
   .notes__box {
@@ -1429,11 +1453,51 @@ button {
   display: flex;
   justify-content: center;
   margin-bottom: 32px;
-  color: #ceeb21;
+  color: #000;
 }
 .notes__mark svg {
-  width: 64px;
-  height: 64px;
+  width: 100px;
+  height: 100px;
+  overflow: visible;
+  shape-rendering: crispEdges; /* keep the pixel-art edges sharp */
+  animation: heart-bob 0.9s steps(1, end) infinite;
+}
+/* ---- 8-bit animation, as on the services icons: jumps between frames (steps).
+   One art pixel is 1.52 of 32 units, so 4.75px at 100px. The heart bobs, beats
+   twice (scale up one pixel's worth and back), and its shine blinks. */
+@keyframes heart-bob {
+  0%   { transform: translateY(0); }
+  25%  { transform: translateY(-4.75px); }
+  50%  { transform: translateY(-9.5px); }
+  75%  { transform: translateY(-4.75px); }
+  100% { transform: translateY(0); }
+}
+.notes__mark .heart-beat {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: heart-beat 1.2s steps(1, end) infinite;
+}
+@keyframes heart-beat {
+  0%   { transform: scale(1); }
+  10%  { transform: scale(1.1); }
+  20%  { transform: scale(1); }
+  30%  { transform: scale(1.1); }
+  40%  { transform: scale(1); }
+}
+.notes__mark .px-shine {
+  animation: px-blink 1.2s steps(1, end) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .notes__mark svg,
+  .notes__mark .heart-beat,
+  .notes__mark .px-shine {
+    animation: none;
+  }
+}
+/* Green label between the heart and the quote: 32px under the heart, 24px above the quote */
+.notes__pill {
+  display: table;
+  margin: 0 auto 24px;
 }
 /* Quotes share one grid cell, so the section keeps the height of the longest
    and the page below never jumps when they rotate */
@@ -1473,17 +1537,16 @@ button {
 }
 .note__by {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: baseline;
-  gap: 6px 16px;
+  flex-direction: column; /* role under the company */
+  align-items: center;
+  gap: 6px;
 }
 .note__role {
   font-family: var(--f-mono);
   font-size: 14px;
   line-height: 1.22;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--c-muted);
 }
 
 /* ==========================================================================
@@ -1493,7 +1556,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 44px;
-  padding-bottom: var(--section-gap);
+  padding-bottom: 160px; /* journal → footer */
 }
 .journal__head {
   display: flex;
@@ -2430,6 +2493,7 @@ html.is-preloading {
   border-radius: 32px;
   overflow: hidden;
   background: #131313;
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.25); /* client notes shadow, stronger so it reads under the dark box */
 }
 /* Work collage (same image as the homepage quotes) drifting like a slow camera move:
    zooms in and pans across, then back. Transform only, so it stays smooth in Chrome.
@@ -2511,7 +2575,7 @@ html.is-preloading {
   margin: 48px 32px; /* kept off the panel itself so the collage can size to the full panel */
 }
 .studio-hero__title {
-  max-width: 900px;
+  max-width: 800px;
   color: #fff;
   text-align: center;
   font-family: var(--f-display);
@@ -2519,6 +2583,14 @@ html.is-preloading {
   font-size: 48px;
   line-height: 1.1;
   letter-spacing: -0.02em;
+}
+/* Subtext under the headline: body text in 70% white (as the quote roles), 24px below it */
+.studio-hero__sub {
+  max-width: 600px;
+  margin-top: -24px; /* 16px under the headline instead of the 40px gap */
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 19px;
+  text-align: center;
 }
 
 /* Client logos: the homepage ticker, full width under the video */
@@ -2639,6 +2711,9 @@ html.is-preloading {
   }
   .studio-hero__title {
     font-size: 28px;
+  }
+  .studio-hero__sub {
+    margin-top: -12px; /* 16px under the headline (gap is 28px here) */
   }
   .awards {
     gap: 40px;
