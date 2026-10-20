@@ -1408,7 +1408,8 @@ button {
 /* The usual 240px gap above and below; the quote sits in a dark panel the
    same width and corner radius as the showreel, with 280px inside top and bottom */
 .notes {
-  padding-block: var(--section-gap);
+  padding-top: 160px; /* services → client notes */
+  padding-bottom: var(--section-gap);
 }
 /* Pale green gradient panel (from Gradient2.svg with its 30% white layer baked in: #edffba at the top-left to #f9ffe9
    at 71%, toward the bottom-right). The gradient sits on an oversized layer that
@@ -1601,6 +1602,14 @@ button {
   height: 100%;
   object-fit: cover;
 }
+.article__text {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column; /* source (eyebrow) above the headline */
+  align-items: flex-start;
+  gap: 4px;
+}
 .article__title {
   flex: 1 1 0;
   min-width: 0;
@@ -1609,22 +1618,13 @@ button {
   font-size: 40px;
   line-height: 1.1;
   letter-spacing: -0.02em;
-  transition: color 0.3s ease;
-}
-.article:hover .article__title,
-.article:focus-visible .article__title {
-  color: #777777;
 }
 .article__time {
-  width: 100px;
-  text-align: right;
+  text-align: left;
 }
 @media (max-width: 1199.98px) {
   .article__title {
     font-size: 32px;
-  }
-  .article__time {
-    display: none;
   }
 }
 @media (max-width: 809.98px) {

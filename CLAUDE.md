@@ -21,13 +21,14 @@ The layout started as a clone of the **Bungee** Framer template (bungee.framer.w
 | `assets/icons/client-*.svg` | Ticker logos in use: `activision`, `disney`, `fortnite`, `hubspot`, `marvel`, `mlb`, `nba`, `toast` (all from Wikimedia Commons, public domain, recolored to `#666666`, white cut-outs kept). Unused: `client-01…08.svg` (old Bungee placeholders), `client-history.svg` |
 | `assets/icons/` (other) | Project logos (`logo-*.svg`), service icons (`service-visual/product/motion/dev.svg`) |
 | `assets/images/services/` | Services box gradients: `visual-bg.jpg` (green), `product-bg.jpg` (peach), `motion-bg.jpg` (blue), `development-bg.jpg` (lavender) |
+| `assets/images/press/` | Press thumbs: `fastcompany.jpg`, `forbes.jpg`, `billboard.jpg` (960×640) |
 | `assets/images/work/` | Ring thumbnails (`*-sm.jpg`); 3 `*-lg.jpg` used on `activision.html` |
 | `assets/images/quotes-bg.jpg` | Dark work-collage (1920×1080, 284.4px tile grid) behind the studio intro (no longer used by the homepage quotes) |
 | `assets/video/` | `preloader-signature.mp4` (loader signature), `hero-loop-01.mp4` (showreel lightbox) |
 | `portfolio/` | Source thumbnails (unused by the site; don't upload, don't delete) |
 | `robots.txt`, `sitemap.xml`, `llms.txt` | SEO / AI-crawler files for https://www.purenine.com. Sitemap lists `/`, `activision.html`, `studio.html`, `contact.html`, `llms.txt` |
 
-**Cache busting:** every CSS/JS link in the HTML files has `?v=NNN` (currently `?v=301`). Bump it in **all four** (`index.html`, `activision.html`, `contact.html`, `studio.html`) whenever CSS or JS changes. HTML-only changes don't need a bump.
+**Cache busting:** every CSS/JS link in the HTML files has `?v=NNN` (currently `?v=308`). Bump it in **all four** (`index.html`, `activision.html`, `contact.html`, `studio.html`) whenever CSS or JS changes. HTML-only changes don't need a bump.
 
 ---
 
@@ -63,7 +64,7 @@ The layout started as a clone of the **Bungee** Framer template (bungee.framer.w
 - **Box shadow:** `0 24px 60px -20px rgba(0,0,0,.12)` on the homepage quote panel and the services box; the studio intro panel uses the same at **25%** (reads better under the dark box)
 - Scroll reveal: add `data-reveal` (optional `style="--delay:.1s"`, `="fade"` for no slide); `data-split` for word-by-word headlines. An element with both `.btn` and `data-reveal` keeps its hover transition (`.js .btn[data-reveal]`)
 - **Logo fade:** the nav logo fades (and the hamburger gets its green disc) when it reaches the element marked `data-logo-stop`, else the homepage `.clock`. `FADE_GAP` 24px. Used on: homepage (clock), contact ("Get in touch" pill), studio (intro panel), activision (title). Body class `page-inner` would force the logo to stay — no page uses it now.
-- **Section spacing:** `--section-gap: 240px` (in `:root`) between View more → Audiomack → services → client notes → journal; journal → footer is **160px** (`.journal` padding-bottom)
+- **Section spacing:** `--section-gap: 240px` (in `:root`) between View more → Audiomack → services and client notes → journal, except services → client notes is **160px** (`.notes` padding-top); journal → footer is **160px** (`.journal` padding-bottom)
 
 ---
 
@@ -79,7 +80,7 @@ Logo top-left (desktop: 32px from top, 40px tall, so it ends at 72px; tablet/pho
 
 1. **Preloader** — black panel, phrases rise letter by letter: "UX / UI." → "Visual Design." → "Claude Code.", then the signature video plays (1.5× speed), then the panel swipes up. Skipped when arriving from another page of the site, on back/forward, or with reduced motion.
 2. **Navigation** — see above; logo fades when it reaches the clock.
-3. **Hero** — green pill "Experience Creativity" (24px above), centered headline "I bring ideas to life…" (hero lead style, max 850px) + subtext. Desktop: hero `padding-top: 124px` → 100px between logo and pill. `.hero__content` gap 96px desktop → **80px** from subtext to the clock row. Clock `( h:mm PM NY )` and `LI / IG / X` row (moved up 16px via `top: -16px`).
+3. **Hero** — green pill "Experience Creativity" (24px above), centered headline "I bring ideas to life…" (hero lead style, max 850px) + subtext (fades in at **0.7s**, about halfway through the headline's word-by-word build). Desktop: hero `padding-top: 124px` → 100px between logo and pill. `.hero__content` gap 96px desktop → **80px** from subtext to the clock row. Clock `( h:mm PM NY )` and `LI / IG / X` row (moved up 16px via `top: -16px`).
 4. **3D project ring** (`.ring`) — cards on the inside of a cylinder, drifting right to left; sideways swipe/drag/arrow keys turn it, vertical scroll always scrolls the page. 28 projects from the `#work-data` JSON (`t` title, `s` thumb), shuffled per load. Cards 300×375 (phone 200×250), 40px radius. Desktop `margin-top: -66px` → middle card top 96px below the clock row.
    - **Ruler** below ("Scroll recent projects") follows user turning only, and is itself draggable/swipeable exactly like the cards (12px invisible grab area above and below).
    - Ring is edge to edge up to **1920px**, then capped and centered.
@@ -94,8 +95,8 @@ Logo top-left (desktop: 32px from top, 40px tall, so it ends at 72px; tablet/pho
    - Each row: 32px top/bottom padding; 8px name → description; 24px description → detail line.
    - Right side: 4:5 box (32px radius, soft drop shadow). Background is a **gradient per service** (`assets/images/services/*-bg.jpg`, on `.services__fill::before`) that **fades in over 0.5s** as rows open; the **200px icon** swaps **instantly**. Icons are **inlined SVGs** (copied from `assets/icons/service-*.svg`) with their parts wrapped in `px-*` groups so they animate in stepped 8-bit style (`steps(1, end)`, 1.52-unit = one art pixel): whole icon bobs (`icon-bob`); Visual dots chase + shape walks a square; Product corners pop out + text tool blinks; Motion equalizer bars flicker + antennas alternate; Development face blinks + keys chase. Only the showing icon animates; reduced motion stops it. Phone: box moves above the list.
    - Hover, tap or keyboard focus opens a row.
-9. **Client notes** (ported from jackson) — panel same width/radius as the showreel, 160px padding inside (96px on phone), 240px outside, soft drop shadow. Background: pale green gradient from `Gradient2.svg` (30% white layer baked in: `#edffba` top-left → `#f9ffe9` at 71%) on an oversized `::before` layer that **drifts** (`notes-glow`, 12s alternate, transform only); reduced motion = still gradient. On top: a black **100px pixel heart** (Streamline Pixel "heart-favorite", inlined) animated in the services 8-bit style — bobs (`heart-bob`, 4.75px = one art pixel), beats twice (`heart-beat`), shine pixels blink (`px-shine`); then a green `.pill` "Testimonials" (32px under the heart, 24px above the quote). Three quotes in dark text, rotating every **4 seconds** (pauses in background tabs); company in `.t-h5` with the role underneath in mono, muted. Quotes are stacked in one grid cell so the page never jumps.
-10. **Journal** (ported from jackson) — "From the journal" + "All articles" link; 3 rows: `( _0N )` number, grey 150×100 thumb, 40px title, mono read time. No summaries. Phone hides number; tablet hides read time.
+9. **Client notes** (ported from jackson) — panel same width/radius as the showreel, 160px padding inside (96px on phone), 160px above (from services) and 240px below, soft drop shadow. Background: pale green gradient from `Gradient2.svg` (30% white layer baked in: `#edffba` top-left → `#f9ffe9` at 71%) on an oversized `::before` layer that **drifts** (`notes-glow`, 12s alternate, transform only); reduced motion = still gradient. On top: a black **100px pixel heart** (Streamline Pixel "heart-favorite", inlined) animated in the services 8-bit style — bobs (`heart-bob`, 4.75px = one art pixel), beats twice (`heart-beat`), shine pixels blink (`px-shine`); then a green `.pill` "Testimonials" (32px under the heart, 24px above the quote). Three quotes in dark text, rotating every **4 seconds** (pauses in background tabs); company in `.t-h5` with the role underneath in mono, muted. Quotes are stacked in one grid cell so the page never jumps.
+10. **Press** (`.journal`, ported from jackson) — heading "Press"; 3 rows (Fast Company, Forbes, Billboard): `( _0N )` number, 150×100 image thumb (96×96 phone, `object-fit: cover`), then `.article__text`: the source as a mono uppercase muted eyebrow **4px above** the headline (all breakpoints), and the headline (40px desktop, 32 tablet, 24 phone; no max-width, fills the row — up to 1182px on desktop). **Nothing is clickable**: rows are `<div class="article">`, no hover. Phone hides the number.
 11. **Footer** (same on every page) — dark, big "LET'S WORK TOGETHER" with green logo badge (→ `contact.html`), Instagram / Twitter / LinkedIn / Contact, ©2026 PURENINE Studios Inc.
 
 ---
@@ -156,7 +157,6 @@ Repo `https://github.com/pure9nine/PURENINE` (public; Pages on private repos nee
 - Contact form is hidden and has no backend (opens a mailto when shown).
 - **Template demo content is still live and set to be indexed**: THINGS®/LUNAR+/KROMA… project cards, metrics (3m+, 289, 56, 97%). Replace or `noindex` before publishing.
 - All project cards (15) link to `activision.html`; cards 7–15 repeat the first 6.
-- Journal titles and links are placeholders (`href="#journal"`); thumbs are empty grey boxes (drop an `<img>` inside `.article__thumb`).
 - Services descriptions/detail lines were written as placeholders; the tag "Enginnering" on Development is misspelled.
 - `robots.txt` explicitly allows AI training crawlers (GPTBot, Google-Extended, etc.) — confirm that's intended.
 - Fonts are embedded as base64 (render-blocking ~180 KB). Once hosted, consider switching `fonts.css` to the `.woff2` files in `assets/fonts/`.
