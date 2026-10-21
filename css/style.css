@@ -2630,8 +2630,9 @@ html.is-preloading {
 .awards__head .pill {
   margin-bottom: 0;
 }
-.awards__title {
-  max-width: 600px;
+/* Heading + subtext styled like the homepage hero lead (.hero__lead / .hero__sub) */
+.awards__sub {
+  margin-top: 0; /* 24px under the heading, like the hero */
 }
 .award {
   display: grid;
