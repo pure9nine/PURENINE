@@ -2636,7 +2636,7 @@ html.is-preloading {
 }
 .award {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto 96px;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 24px;
   padding: 20px 0;
@@ -2690,13 +2690,15 @@ html.is-preloading {
     font-size: 18px;
   }
 }
+/* .award__title was removed from the HTML (no longer used) */
 .award__title,
 .award__date {
   font-size: 14.08px;
   line-height: 1.4;
 }
 .award__date {
-  color: var(--c-muted);
+  color: var(--c-text);
+  font-weight: 500;
   text-align: right;
 }
 
@@ -2735,12 +2737,12 @@ html.is-preloading {
     padding-top: 96px;
     padding-bottom: 96px;
   }
-  /* Award name on top, title and year underneath */
+  /* Award name on top, year underneath */
   .award {
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr);
     gap: 4px 16px;
   }
-  .award__name {
-    grid-column: 1 / -1;
+  .award__date {
+    text-align: left;
   }
 }

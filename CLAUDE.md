@@ -24,11 +24,13 @@ The layout started as a clone of the **Bungee** Framer template (bungee.framer.w
 | `assets/images/press/` | Press thumbs: `fastcompany.jpg`, `forbes.jpg`, `billboard.jpg` (960×640) |
 | `assets/images/work/` | Ring thumbnails (`*-sm.jpg`); 3 `*-lg.jpg` used on `activision.html` |
 | `assets/images/quotes-bg.jpg` | Dark work-collage (1920×1080, 284.4px tile grid) behind the studio intro (no longer used by the homepage quotes) |
+| `assets/images/` (other) | `showreel.jpg` (showreel poster), `project-*.jpg` (six THINGS-era placeholder card/case images used by the homepage grid and `activision.html`), `og-image.jpg` (social share image used in the SEO tags) |
+| `assets/favicon/` | `favicon.jpg` (tab icon), `apple-touch-icon.png` (also the JSON-LD logo) |
 | `assets/video/` | `preloader-signature.mp4` (loader signature), `hero-loop-01.mp4` (showreel lightbox) |
 | `portfolio/` | Source thumbnails (unused by the site; don't upload, don't delete) |
 | `robots.txt`, `sitemap.xml`, `llms.txt` | SEO / AI-crawler files for https://www.purenine.com. Sitemap lists `/`, `activision.html`, `studio.html`, `contact.html`, `llms.txt` |
 
-**Cache busting:** every CSS/JS link in the HTML files has `?v=NNN` (currently `?v=308`). Bump it in **all four** (`index.html`, `activision.html`, `contact.html`, `studio.html`) whenever CSS or JS changes. HTML-only changes don't need a bump.
+**Cache busting:** every CSS/JS link in the HTML files has `?v=NNN` (currently `?v=311`). Bump it in **all four** (`index.html`, `activision.html`, `contact.html`, `studio.html`) whenever CSS or JS changes. HTML-only changes don't need a bump.
 
 ---
 
@@ -63,7 +65,7 @@ The layout started as a clone of the **Bungee** Framer template (bungee.framer.w
 - Rounded corners: project cards 32px, showreel + quote panel + studio intro panel 40/32px, small thumbs 12px
 - **Box shadow:** `0 24px 60px -20px rgba(0,0,0,.12)` on the homepage quote panel and the services box; the studio intro panel uses the same at **25%** (reads better under the dark box)
 - Scroll reveal: add `data-reveal` (optional `style="--delay:.1s"`, `="fade"` for no slide); `data-split` for word-by-word headlines. An element with both `.btn` and `data-reveal` keeps its hover transition (`.js .btn[data-reveal]`)
-- **Logo fade:** the nav logo fades (and the hamburger gets its green disc) when it reaches the element marked `data-logo-stop`, else the homepage `.clock`. `FADE_GAP` 24px. Used on: homepage (clock), contact ("Get in touch" pill), studio (intro panel), activision (title). Body class `page-inner` would force the logo to stay — no page uses it now.
+- **Logo fade:** the nav logo fades (and the hamburger gets its green disc) when it reaches the element marked `data-logo-stop`, else the homepage `.clock`. `FADE_GAP` 24px. Used on: homepage (clock), contact ("Get in touch" pill), studio (intro panel), activision (title). Body class `page-inner` would force the logo to stay — no page uses it now (the rule at `css/style.css:375` is dead code and can be deleted).
 - **Section spacing:** `--section-gap: 240px` (in `:root`) between View more → Audiomack → services and client notes → journal, except services → client notes is **160px** (`.notes` padding-top); journal → footer is **160px** (`.journal` padding-bottom)
 
 ---
@@ -87,7 +89,7 @@ Logo top-left (desktop: 32px from top, 40px tall, so it ends at 72px; tablet/pho
    - White edge fades (`.ring::before/::after`) appear **only at ≥ 1920px**. They are gradient overlays, **not masks** (masks made Chrome stutter).
 5. **Intro / About** — "PURENINE is the design collective of Thomas Klinger…" in hero lead style (up to 850px, may extend past the 720px column), green-underlined name link to LinkedIn, subtext, client logo ticker (left-to-right): Activision, Disney, Fortnite, HubSpot, Marvel, MLB, NBA, Toast — alphabetical, `#666666`. Heights: wordmarks 26px, Marvel 30, MLB 34, Disney 36, NBA 48.
 6. **Projects grid** — 3 columns (1 on tablet/phone). 6 cards visible; **"View more projects +"** reveals 9 more (15 total). Hidden cards carry `data-more`; the button removes itself after clicking. All cards link to `activision.html`.
-7. **Audiomack** (`#studio`, reuses the `.studio` classes) — centered: green pill "Co-Founder / CCO", heading "In 2013, I helped co-found Audiomack…" (Audiomack is a `.name-link` to the App Store page), subtext, then two centered `.head-link`s: "Visit Audiomack" (→ `audiomack.html`, not built yet) and "Download the app" (`href="#"`, placeholder). 60px + 40px gap to the showreel image with play button (opens `<dialog>` lightbox), then 4 metrics.
+7. **Audiomack** (`#studio`, reuses the `.studio` classes) — centered: green pill "Co-Founder / CCO", heading "In 2013, I helped co-found Audiomack…" (Audiomack is a `.name-link` to the App Store page), subtext, then two centered `.head-link`s: "Visit Audiomack" (→ `audiomack.html`, not built yet) and "Download the app" (→ App Store page, new tab). 60px + 40px gap to the showreel image with play button (opens `<dialog>` lightbox), then 4 metrics.
 8. **Services** (ported from jackson) — centered heading "I execute the ideas that build your business — from MVP to enterprise scale." + subtext; list starts 100px below the subtext. Then a hover list:
    - Rows: Visual / Product / Motion / Development, each with `( _0N )` number, big name, right-hand tag pill, description (`.t-h5`), and a mono detail line. First row has no top line and no top padding, so its text starts level with the box.
    - Name 72px desktop (64 tablet, 44 phone), weight 500, line-height 1.02, -0.045em. Closed rows `#777777`, open row `#1e1e1e`.
@@ -110,7 +112,7 @@ Logo top-left (desktop: 32px from top, 40px tall, so it ends at 72px; tablet/pho
 **Studio page (`studio.html`)** — body class `page-studio`. Top sections of Bungee /about only:
 - **Intro panel** (`.studio-hero`, `data-logo-stop`): starts 40px below the logo (padding-top 112px desktop / 100px below), full height minus 16px (phone 4:5), 32px radius. Background `.studio-hero__bg` = `quotes-bg.jpg` sized as an exact 16:9 "cover" box with container units (`--bw`/`--bh` on the panel, `container-type: size`), **drifting** (`studio-drift`, 14s alternate, transform only) under a 30% dim, with **28 tile spans** (one per thumbnail, `--x/--y` in image px on a 284.4px grid) that **pop** (`tile-pop`, 4.5–7s each, negative delays, ~10 lit at once, scale up to 1.25 with shadow). 20% black layer on top. Reduced motion: still image, no tiles. Drop shadow at 25% black. Text: "PURENINE is the design collective of Thomas Klinger - a creative director, visual designer & product lead." (all white, no green), 48px (40 tablet, 28 phone), max 800px, builds in word by word (`data-split`, like the homepage hero). Subtext "I bring a proven track record…" (`.studio-hero__sub`, 19px, 70% white, max 600px, 16px under the title, fades in at .35s). Then a green `.btn btn--green` "Let's chat" → `contact.html` (fades in at .5s).
 - **Client logos** — same ticker as the homepage.
-- **Awards** — green pill "Digital Storytelling", heading, list rows (name `.t-h5` left; award + year right; phone stacks).
+- **Awards** — green pill "Digital Storytelling", heading "Creative partnerships.<br>Meaningful impact." (a `<br>` always puts "Meaningful impact." on its own line), list rows (name `.t-h5` left; year/role right in weight 500, `--c-text` black; phone stacks, year left under the name). The middle "award title" column was removed Oct 21, 2026 (`.award__title` CSS left in place, unused).
 
 ---
 
@@ -141,7 +143,7 @@ Logo top-left (desktop: 32px from top, 40px tall, so it ends at 72px; tablet/pho
 
 ## Local preview
 
-`.claude/launch.json` has a `site` config (`python3 -m http.server 5173`). In the Claude desktop app it **fails** with "Operation not permitted" because the project lives in the Dropbox CloudStorage folder (the browser pane also can't load the CSS from `file://` there). Workaround that works: copy the site (`*.html css js assets`) into the session scratchpad, add a temporary `site-copy` config that runs `/bin/sh -c "cd <scratch>/site && exec python3 -m http.server 5174"` (with `"autoPort": false`), preview `http://localhost:5174/…`, then stop it and restore `launch.json`. Opening `index.html` directly in a normal browser also works (fonts are embedded for that reason).
+There is currently **no `.claude/launch.json`** in the project (it was removed after the workaround below). A plain `site` config would be `python3 -m http.server 5173`, but in the Claude desktop app it **fails** with "Operation not permitted" because the project lives in the Dropbox CloudStorage folder (the browser pane also can't load the CSS from `file://` there). Workaround that works: copy the site (`*.html css js assets`) into the session scratchpad, add a temporary `site-copy` config that runs `/bin/sh -c "cd <scratch>/site && exec python3 -m http.server 5174"` (with `"autoPort": false`), preview `http://localhost:5174/…`, then stop it and restore `launch.json`. Opening `index.html` directly in a normal browser also works (fonts are embedded for that reason).
 
 ## Hosting (GitHub Pages)
 
@@ -151,7 +153,7 @@ Repo `https://github.com/pure9nine/PURENINE` (public; Pages on private repos nee
 
 ## Open items / placeholders before launch
 
-- "Visit Audiomack" links to `audiomack.html`, a portfolio page that isn't built yet; "Download the app" has `href="#"`.
+- "Visit Audiomack" links to `audiomack.html`, a portfolio page that isn't built yet.
 - `activision.html` still uses the THINGS placeholder images and story text ("Global Brand Transformation").
 - Studio page: awards list and heading are placeholders.
 - Contact form is hidden and has no backend (opens a mailto when shown).
