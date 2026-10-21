@@ -22,12 +22,12 @@ The layout started as a clone of the **Bungee** Framer template (bungee.framer.w
 | `assets/icons/` (other) | Project logos (`logo-*.svg`), service icons (`service-visual/product/motion/dev.svg`) |
 | `assets/images/services/` | Services box gradients: `visual-bg.jpg` (green), `product-bg.jpg` (peach), `motion-bg.jpg` (blue), `development-bg.jpg` (lavender) |
 | `assets/images/press/` | Press thumbs: `fastcompany.jpg`, `forbes.jpg`, `billboard.jpg` (960×640) |
-| `assets/images/work/` | Ring thumbnails (`*-sm.jpg`); 3 `*-lg.jpg` used on `activision.html` |
 | `assets/images/quotes-bg.jpg` | Dark work-collage (1920×1080, 284.4px tile grid) behind the studio intro (no longer used by the homepage quotes) |
 | `assets/images/` (other) | `showreel.jpg` (showreel poster), `project-*.jpg` (six THINGS-era placeholder card/case images used by the homepage grid and `activision.html`), `og-image.jpg` (social share image used in the SEO tags) |
 | `assets/favicon/` | `favicon.jpg` (tab icon), `apple-touch-icon.png` (also the JSON-LD logo) |
 | `assets/video/` | `preloader-signature.mp4` (loader signature), `hero-loop-01.mp4` (showreel lightbox) |
-| `portfolio/` | Source thumbnails (unused by the site; don't upload, don't delete) |
+| `portfolio/wall/` | Ring images, loaded directly by the homepage: 1200×1500 JPGs (`1200x1500_<name>.jpg`, ~13 MB total). Add one by dropping it here and adding it to `#work-data`. Also the Activision JSON-LD image |
+| `portfolio/activision/` | Empty, meant for Activision case-study images |
 | `robots.txt`, `sitemap.xml`, `llms.txt` | SEO / AI-crawler files for https://www.purenine.com. Sitemap lists `/`, `activision.html`, `studio.html`, `contact.html`, `llms.txt` |
 
 **Cache busting:** every CSS/JS link in the HTML files has `?v=NNN` (currently `?v=311`). Bump it in **all four** (`index.html`, `activision.html`, `contact.html`, `studio.html`) whenever CSS or JS changes. HTML-only changes don't need a bump.
@@ -83,7 +83,7 @@ Logo top-left (desktop: 32px from top, 40px tall, so it ends at 72px; tablet/pho
 1. **Preloader** — black panel, phrases rise letter by letter: "UX / UI." → "Visual Design." → "Claude Code.", then the signature video plays (1.5× speed), then the panel swipes up. Skipped when arriving from another page of the site, on back/forward, or with reduced motion.
 2. **Navigation** — see above; logo fades when it reaches the clock.
 3. **Hero** — green pill "Experience Creativity" (24px above), centered headline "I bring ideas to life…" (hero lead style, max 850px) + subtext (fades in at **0.7s**, about halfway through the headline's word-by-word build). Desktop: hero `padding-top: 124px` → 100px between logo and pill. `.hero__content` gap 96px desktop → **80px** from subtext to the clock row. Clock `( h:mm PM NY )` and `LI / IG / X` row (moved up 16px via `top: -16px`).
-4. **3D project ring** (`.ring`) — cards on the inside of a cylinder, drifting right to left; sideways swipe/drag/arrow keys turn it, vertical scroll always scrolls the page. 28 projects from the `#work-data` JSON (`t` title, `s` thumb), shuffled per load. Cards 300×375 (phone 200×250), 40px radius. Desktop `margin-top: -66px` → middle card top 96px below the clock row.
+4. **3D project ring** (`.ring`) — cards on the inside of a cylinder, drifting right to left; sideways swipe/drag/arrow keys turn it, vertical scroll always scrolls the page. 26 projects from the `#work-data` JSON (images in `portfolio/wall/`) (`t` title, `s` thumb), shuffled per load. Cards 300×375 (phone 200×250), 40px radius. Desktop `margin-top: -66px` → middle card top 96px below the clock row.
    - **Ruler** below ("Scroll recent projects") follows user turning only, and is itself draggable/swipeable exactly like the cards (12px invisible grab area above and below).
    - Ring is edge to edge up to **1920px**, then capped and centered.
    - White edge fades (`.ring::before/::after`) appear **only at ≥ 1920px**. They are gradient overlays, **not masks** (masks made Chrome stutter).
@@ -105,7 +105,7 @@ Logo top-left (desktop: 32px from top, 40px tall, so it ends at 72px; tablet/pho
 
 ## Other pages
 
-**Project page (`activision.html`)** — own SEO head (title "Activision Case Study: Art Direction & Visual Design - Thomas Klinger", description, keywords, OG/Twitter, CreativeWork + WebPage + Breadcrumb + Person + ProfessionalService JSON-LD; author/publisher tags from the homepage). Homepage nav. Sticky info column (desktop sticks at 120px): title "Activision" (`data-logo-stop` — on desktop the logo only meets it at the end of the page because the column is sticky), intro text, info list: **Client / Agency / Services / Live URL** — labels Chivo Mono 14px uppercase muted, values 16px right-aligned, `--c-border` dividers, 18px row padding. "View Activision Blog" → https://blog.activision.com/ (new tab), regular weight, 2px green underline (5px offset), green on hover, no arrow. Then the image stack and the footer ("More projects" and the "Have a project in mind?" CTA were removed; their `.more` / `.cta` CSS is still in style.css). Page transitions: native cross-document View Transitions where supported, otherwise a white 0.4s fade.
+**Project page (`activision.html`)** — own SEO head (title "Activision Case Study: Art Direction & Visual Design - Thomas Klinger", description, keywords, OG/Twitter, CreativeWork + WebPage + Breadcrumb + Person + ProfessionalService JSON-LD; author/publisher tags from the homepage). Homepage nav. Sticky info column (desktop sticks at 120px): title "Activision" (`data-logo-stop` — on desktop the logo only meets it at the end of the page because the column is sticky), intro text, info list: **Client / Agency / Services / Live URL** — labels Chivo Mono 14px uppercase muted, values 16px right-aligned, `--c-border` dividers, 18px row padding. "View Activision Blog" → https://blog.activision.com/ (new tab), regular weight, 2px green underline (5px offset), green on hover, no arrow. Then the image stack (currently empty: the 3 `*-lg.jpg` placeholders were removed; a comment marks where images go) and the footer ("More projects" and the "Have a project in mind?" CTA were removed; their `.more` / `.cta` CSS is still in style.css). Page transitions: native cross-document View Transitions where supported, otherwise a white 0.4s fade.
 
 **Contact page (`contact.html`)** — body class `page-contact`. Green pill "Get in touch" (`data-logo-stop`), headline "Got a project in mind? Let's chat and bring it to life." (`.t-h1`, max 600px), `LI / IG / X` on the right, divider line inset to the page margins (`.contact-hero__rule`, fades in with the rest). Below: **EMAIL** label + hello@purenine.com (`.mail-link t-h4`), 40px, **ADDRESS** label + "30 Old Kings Hwy S, Darien, CT 06820" (`.t-h4`). The message form is still in the HTML but **hidden** (`hidden` attribute; `.contact-form[hidden]`); when shown it opens the visitor's mail app (`initContactForm`, no backend). FAQ was removed.
 
@@ -154,7 +154,7 @@ Repo `https://github.com/pure9nine/PURENINE` (public; Pages on private repos nee
 ## Open items / placeholders before launch
 
 - "Visit Audiomack" links to `audiomack.html`, a portfolio page that isn't built yet.
-- `activision.html` still uses the THINGS placeholder images and story text ("Global Brand Transformation").
+- `activision.html` has no project images yet and still uses the THINGS placeholder story text ("Global Brand Transformation").
 - Studio page: awards list and heading are placeholders.
 - Contact form is hidden and has no backend (opens a mailto when shown).
 - **Template demo content is still live and set to be indexed**: THINGS®/LUNAR+/KROMA… project cards, metrics (3m+, 289, 56, 97%). Replace or `noindex` before publishing.
