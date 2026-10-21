@@ -15,9 +15,9 @@ The layout started as a clone of the **Bungee** Framer template (bungee.framer.w
 | `contact.html` | Contact page. See "Contact page" below |
 | `studio.html` | Studio page. See "Studio page" below |
 | `css/style.css` | All styles. Breakpoints: desktop ≥ 1200px · tablet 810–1199px · phone ≤ 809px. Page sections are at the end: Project page, Contact page, Studio page |
-| `css/fonts.css` | Web fonts embedded as base64 data URIs (~180 KB) so they work from `file://` in Safari |
+| `css/fonts.css` | `@font-face` rules pointing at `assets/fonts/*.woff2` (switched from base64 on Oct 21, 2026 for PageSpeed). Every page preloads Inter Display 500/400 + Chivo Mono in `<head>`. Safari on `file://` shows fallback fonts — preview through a local server |
 | `js/main.js` | All interactions, one IIFE, ES5 style (`var`, `function`), no dependencies |
-| `assets/fonts/*.woff2` | Source font files (not loaded at runtime; keep them). Only 400/500/700 exist — there is **no 600** |
+| `assets/fonts/*.woff2` | The web font files, loaded by `fonts.css`. Only 400/500/700 exist — there is **no 600** |
 | `assets/icons/client-*.svg` | Ticker logos in use: `activision`, `disney`, `fortnite`, `hubspot`, `marvel`, `mlb`, `nba`, `toast` (all from Wikimedia Commons, public domain, recolored to `#666666`, white cut-outs kept). Unused: `client-01…08.svg` (old Bungee placeholders), `client-history.svg` |
 | `assets/icons/` (other) | Project logos (`logo-*.svg`), service icons (`service-visual/product/motion/dev.svg`) |
 | `assets/images/services/` | Services box gradients: `visual-bg.jpg` (green), `product-bg.jpg` (peach), `motion-bg.jpg` (blue), `development-bg.jpg` (lavender) |
@@ -26,11 +26,12 @@ The layout started as a clone of the **Bungee** Framer template (bungee.framer.w
 | `assets/images/` (other) | `showreel.jpg` (showreel poster), `project-*.jpg` (six THINGS-era placeholder card/case images used by the homepage grid and `activision.html`), `og-image.jpg` (social share image used in the SEO tags) |
 | `assets/favicon/` | `favicon.jpg` (tab icon), `apple-touch-icon.png` (also the JSON-LD logo) |
 | `assets/video/` | `preloader-signature.mp4` (loader signature), `hero-loop-01.mp4` (showreel lightbox) |
-| `portfolio/wall/` | Ring images, loaded directly by the homepage: 1200×1500 JPGs (`1200x1500_<name>.jpg`, ~13 MB total). Add one by dropping it here and adding it to `#work-data`. Also the Activision JSON-LD image |
+| `portfolio/wall/` | Ring image **masters**: 1200×1500 JPGs (`1200x1500_<name>.jpg`, ~12 MB). Not loaded by the homepage. Also the Activision JSON-LD image |
+| `portfolio/ring/` | What the ring actually loads: 600×750 JPGs, quality 75 (`600x750_<name>.jpg`, ~3.4 MB total). To add a project: put the master in `portfolio/wall/`, then make the small one with `sips -z 750 600 -s format jpeg -s formatOptions 75 portfolio/wall/1200x1500_<name>.jpg --out portfolio/ring/600x750_<name>.jpg`, and add it to `#work-data` |
 | `portfolio/activision/` | Empty, meant for Activision case-study images |
 | `robots.txt`, `sitemap.xml`, `llms.txt` | SEO / AI-crawler files for https://www.purenine.com. Sitemap lists `/`, `activision.html`, `studio.html`, `contact.html`, `llms.txt` |
 
-**Cache busting:** every CSS/JS link in the HTML files has `?v=NNN` (currently `?v=311`). Bump it in **all four** (`index.html`, `activision.html`, `contact.html`, `studio.html`) whenever CSS or JS changes. HTML-only changes don't need a bump.
+**Cache busting:** every CSS/JS link in the HTML files has `?v=NNN` (currently `?v=312`). Bump it in **all four** (`index.html`, `activision.html`, `contact.html`, `studio.html`) whenever CSS or JS changes. HTML-only changes don't need a bump.
 
 ---
 
@@ -83,7 +84,7 @@ Logo top-left (desktop: 32px from top, 40px tall, so it ends at 72px; tablet/pho
 1. **Preloader** — black panel, phrases rise letter by letter: "UX / UI." → "Visual Design." → "Claude Code.", then the signature video plays (1.5× speed), then the panel swipes up. Skipped when arriving from another page of the site, on back/forward, or with reduced motion.
 2. **Navigation** — see above; logo fades when it reaches the clock.
 3. **Hero** — green pill "Experience Creativity" (24px above), centered headline "I bring ideas to life…" (hero lead style, max 850px) + subtext (fades in at **0.7s**, about halfway through the headline's word-by-word build). Desktop: hero `padding-top: 124px` → 100px between logo and pill. `.hero__content` gap 96px desktop → **80px** from subtext to the clock row. Clock `( h:mm PM NY )` and `LI / IG / X` row (moved up 16px via `top: -16px`).
-4. **3D project ring** (`.ring`) — cards on the inside of a cylinder, drifting right to left; sideways swipe/drag/arrow keys turn it, vertical scroll always scrolls the page. 26 projects from the `#work-data` JSON (images in `portfolio/wall/`) (`t` title, `s` thumb), shuffled per load. Cards 300×375 (phone 200×250), 40px radius. Desktop `margin-top: -66px` → middle card top 96px below the clock row.
+4. **3D project ring** (`.ring`) — cards on the inside of a cylinder, drifting right to left; sideways swipe/drag/arrow keys turn it, vertical scroll always scrolls the page. 26 projects from the `#work-data` JSON (images in `portfolio/ring/`, 600×750) (`t` title, `s` thumb), shuffled per load. Until the page's `load` event only the front half of the cards get images, and the middle ~3 get `fetchpriority="high"` (the first card on screen is the page's LCP element). Cards 300×375 (phone 200×250), 40px radius. Desktop `margin-top: -66px` → middle card top 96px below the clock row.
    - **Ruler** below ("Scroll recent projects") follows user turning only, and is itself draggable/swipeable exactly like the cards (12px invisible grab area above and below).
    - Ring is edge to edge up to **1920px**, then capped and centered.
    - White edge fades (`.ring::before/::after`) appear **only at ≥ 1920px**. They are gradient overlays, **not masks** (masks made Chrome stutter).
@@ -143,7 +144,7 @@ Logo top-left (desktop: 32px from top, 40px tall, so it ends at 72px; tablet/pho
 
 ## Local preview
 
-There is currently **no `.claude/launch.json`** in the project (it was removed after the workaround below). A plain `site` config would be `python3 -m http.server 5173`, but in the Claude desktop app it **fails** with "Operation not permitted" because the project lives in the Dropbox CloudStorage folder (the browser pane also can't load the CSS from `file://` there). Workaround that works: copy the site (`*.html css js assets`) into the session scratchpad, add a temporary `site-copy` config that runs `/bin/sh -c "cd <scratch>/site && exec python3 -m http.server 5174"` (with `"autoPort": false`), preview `http://localhost:5174/…`, then stop it and restore `launch.json`. Opening `index.html` directly in a normal browser also works (fonts are embedded for that reason).
+There is currently **no `.claude/launch.json`** in the project (it was removed after the workaround below). A plain `site` config would be `python3 -m http.server 5173`, but in the Claude desktop app it **fails** with "Operation not permitted" because the project lives in the Dropbox CloudStorage folder (the browser pane also can't load the CSS from `file://` there). Workaround that works: copy the site (`*.html css js assets`) into the session scratchpad, add a temporary `site-copy` config that runs `/bin/sh -c "cd <scratch>/site && exec python3 -m http.server 5174"` (with `"autoPort": false`), preview `http://localhost:5174/…`, then stop it and restore `launch.json`. Opening `index.html` directly in a normal browser mostly works, but Safari shows fallback fonts from `file://` (fonts are no longer embedded).
 
 ## Hosting (GitHub Pages)
 
@@ -161,6 +162,5 @@ Repo `https://github.com/pure9nine/PURENINE` (public; Pages on private repos nee
 - All project cards (15) link to `activision.html`; cards 7–15 repeat the first 6.
 - Services descriptions/detail lines were written as placeholders; the tag "Enginnering" on Development is misspelled.
 - `robots.txt` explicitly allows AI training crawlers (GPTBot, Google-Extended, etc.) — confirm that's intended.
-- Fonts are embedded as base64 (render-blocking ~180 KB). Once hosted, consider switching `fonts.css` to the `.woff2` files in `assets/fonts/`.
 - Unused assets still in the project: `client-01…08.svg` (old placeholder logos) and `client-history.svg`.
 - Removed/unused assets from the earlier cleanup are in the macOS Trash folder `2k27-unused-assets-2026-10-16`.

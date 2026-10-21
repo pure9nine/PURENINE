@@ -259,6 +259,18 @@
       return mod(i - lap * N, M);
     }
 
+    // Until the page has loaded, only the front half of the ring gets images, and
+    // the middle cards get them first, so the first card on screen isn't sharing
+    // bandwidth with cards behind the viewer.
+    var pageLoaded = doc.readyState === 'complete';
+    if (!pageLoaded) {
+      window.addEventListener('load', function () {
+        pageLoaded = true;
+        lastAngle = null;
+        render();
+      }, { once: true });
+    }
+
     var lastAngle = null;
     function render() {
       var a = Math.round(current * 100) / 100;
@@ -269,6 +281,9 @@
         var idx = itemFor(i);
         var c = cards[i];
         if (idx !== c.idx) {
+          var off = Math.abs(mod(current + i * STEP + 180, 360) - 180); // 0 = middle, 180 = behind
+          if (!pageLoaded && off > 90) continue;
+          if (!pageLoaded && off < STEP * 1.5) c.img.fetchPriority = 'high';
           c.idx = idx;
           c.img.src = items[idx].s;
           c.img.alt = items[idx].t;
@@ -382,15 +397,21 @@
     build();
     kick();
 
+    // Warm up the remaining images once the page has loaded, so cards don't flash
+    // empty when they swap projects
     var idle = window.requestIdleCallback || function (fn) { return setTimeout(fn, 1200); };
-    idle(function () {
-      items.forEach(function (it) {
-        var im = new Image();
-        im.decoding = 'async';
-        im.src = it.s;
-        if (im.decode) im.decode().catch(function () {});
+    function warmUp() {
+      idle(function () {
+        items.forEach(function (it) {
+          var im = new Image();
+          im.decoding = 'async';
+          im.src = it.s;
+          if (im.decode) im.decode().catch(function () {});
+        });
       });
-    });
+    }
+    if (pageLoaded) warmUp();
+    else window.addEventListener('load', warmUp, { once: true });
   }
 
   /* ---------- Word-by-word split for headline reveals ---------- */
