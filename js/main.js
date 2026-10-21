@@ -207,7 +207,7 @@
     var ruler = doc.querySelector('.archive-ruler__ticks');
     if (!M) return;
 
-    var R, N, STEP, SENS;
+    var R, N, STEP, SENS, P, CW, W;
     var cards = [];
     var current = 0, target = 0, velocity = 0;
     // The ruler only follows the user's own turning (drag, swipe, keys), not the idle drift
@@ -229,7 +229,9 @@
 
     function build() {
       R = px('--radius');
-      var cw = px('--card-w');
+      P = px('--persp');
+      W = el.clientWidth;
+      var cw = CW = px('--card-w');
       N = Math.max(5, Math.round((2 * Math.PI * R) / (cw * 1.07)));
       STEP = 360 / N;
       SENS = 90 / R; // degrees per dragged pixel
@@ -244,6 +246,7 @@
         img.alt = '';
         img.draggable = false;
         img.decoding = 'async';
+        img.onerror = jpgFallback;
         b.appendChild(img);
         spin.appendChild(b);
         cards.push({ el: b, img: img, idx: -1 });
@@ -259,9 +262,29 @@
       return mod(i - lap * N, M);
     }
 
-    // Until the page has loaded, only the front half of the ring gets images, and
-    // the middle cards get them first, so the first card on screen isn't sharing
-    // bandwidth with cards behind the viewer.
+    // Cards load the AVIF next to each JPG (about a third of the size); browsers
+    // that can't show AVIF fall back to the JPG
+    function avif(s) { return s.replace(/\.jpg$/, '.avif'); }
+    function jpgFallback() {
+      if (/\.avif$/.test(this.src)) this.src = this.src.replace(/\.avif$/, '.jpg');
+    }
+
+    // Cards' backs are hidden by CSS, but Chrome still counts their boxes (huge, as
+    // they swing past close to the viewer) when it measures the page's largest
+    // paint, so cards facing away are set to hidden too. t: angle from the middle,
+    // in radians, 0..PI.
+    function facesViewer(t) { return R + Math.cos(t) * (P - R) > 0; }
+    // Is any of the card inside the ring's width once perspective is applied?
+    function onScreen(t) {
+      var sin = Math.sin(t), cos = Math.cos(t), h = CW / 2;
+      var x1 = R * sin - h * cos, z1 = R * (1 - cos) - h * sin;
+      var x2 = R * sin + h * cos, z2 = R * (1 - cos) + h * sin;
+      if (z1 >= P || z2 >= P) return true;
+      return Math.min(x1 * P / (P - z1), x2 * P / (P - z2)) < W / 2;
+    }
+
+    // Until the page has loaded, only the cards on screen get images (at high
+    // priority), so they aren't sharing bandwidth with cards out of sight.
     var pageLoaded = doc.readyState === 'complete';
     if (!pageLoaded) {
       window.addEventListener('load', function () {
@@ -280,12 +303,19 @@
       for (var i = 0; i < cards.length; i++) {
         var idx = itemFor(i);
         var c = cards[i];
+        var t = Math.abs(mod(current + i * STEP + 180, 360) - 180) * Math.PI / 180;
+        var faces = facesViewer(t);
+        if (faces !== c.faces) {
+          c.faces = faces;
+          c.el.style.visibility = faces ? '' : 'hidden';
+        }
         if (idx !== c.idx) {
-          var off = Math.abs(mod(current + i * STEP + 180, 360) - 180); // 0 = middle, 180 = behind
-          if (!pageLoaded && off > 90) continue;
-          if (!pageLoaded && off < STEP * 1.5) c.img.fetchPriority = 'high';
+          if (!pageLoaded) {
+            if (!faces || !onScreen(t)) continue;
+            c.img.fetchPriority = 'high';
+          }
           c.idx = idx;
-          c.img.src = items[idx].s;
+          c.img.src = avif(items[idx].s);
           c.img.alt = items[idx].t;
         }
       }
@@ -405,7 +435,7 @@
         items.forEach(function (it) {
           var im = new Image();
           im.decoding = 'async';
-          im.src = it.s;
+          im.src = avif(it.s);
           if (im.decode) im.decode().catch(function () {});
         });
       });
