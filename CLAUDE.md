@@ -11,27 +11,28 @@ The layout started as a clone of the **Bungee** Framer template (bungee.framer.w
 | Path | What it is |
 |---|---|
 | `index.html` | Homepage (all sections below) |
-| `activision.html` | Activision case study (was `inner.html`, the project template). See "Project page" below |
+| `activision.html` | Activision case study (was `inner.html`, the project template). See "Project pages" below |
+| `mlb.html` | Major League Baseball case study, cloned from `activision.html`. See "Project pages" below |
 | `contact.html` | Contact page. See "Contact page" below |
 | `studio.html` | Studio page. See "Studio page" below |
-| `css/style.css` | All styles. Breakpoints: desktop ≥ 1200px · tablet 810–1199px · phone ≤ 809px. Page sections are at the end: Project page, Contact page, Studio page |
+| `css/style.css` | All styles. Breakpoints: desktop ≥ 1200px · tablet 810–1199px · phone ≤ 809px. Page sections are at the end: Project pages, Contact page, Studio page |
 | `css/fonts.css` | `@font-face` rules pointing at `assets/fonts/*.woff2` (switched from base64 on Oct 21, 2026 for PageSpeed). Every page preloads Inter Display 500/400 + Chivo Mono in `<head>`. Safari on `file://` shows fallback fonts — preview through a local server |
 | `js/main.js` | All interactions, one IIFE, ES5 style (`var`, `function`), no dependencies |
 | `assets/fonts/*.woff2` | The web font files, loaded by `fonts.css`. Only 400/500/700 exist — there is **no 600** |
 | `assets/icons/client-*.svg` | Ticker logos in use: `activision`, `disney`, `fortnite`, `hubspot`, `marvel`, `mlb`, `nba`, `toast` (all from Wikimedia Commons, public domain, recolored to `#666666`, white cut-outs kept). Unused: `client-01…08.svg` (old Bungee placeholders), `client-history.svg` |
-| `assets/icons/` (other) | Project logos (`logo-*.svg`), service icons (`service-visual/product/motion/dev.svg`) |
+| `assets/icons/` (other) | Project logos shown on card hover (`logo-*.svg`; `logo-activision.svg` and `logo-mlb.svg` are white copies of the ticker logos — MLB's batter and ball are cut out with a mask), service icons (`service-visual/product/motion/dev.svg`) |
 | `assets/images/services/` | Services box gradients: `visual-bg.jpg` (green), `product-bg.jpg` (peach), `motion-bg.jpg` (blue), `development-bg.jpg` (lavender) |
 | `assets/images/press/` | Press thumbs: `fastcompany.jpg`, `forbes.jpg`, `billboard.jpg` (960×640) |
 | `assets/images/quotes-bg.jpg` | Dark work-collage (1920×1080, 284.4px tile grid) behind the studio intro (no longer used by the homepage quotes) |
-| `assets/images/` (other) | `showreel.jpg` (showreel poster), `project-*.jpg` (six THINGS-era placeholder card/case images used by the homepage grid and `activision.html`), `og-image.jpg` (social share image used in the SEO tags) |
+| `assets/images/` (other) | `showreel.jpg` (showreel poster), `project-*.jpg` (six THINGS-era placeholder card/case images used by the remaining homepage grid placeholders), `og-image.jpg` (social share image used in the SEO tags) |
 | `assets/favicon/` | `favicon.jpg` (tab icon), `apple-touch-icon.png` (also the JSON-LD logo) |
 | `assets/video/` | `preloader-signature.mp4` (loader signature), `hero-loop-01.mp4` (showreel lightbox) |
 | `portfolio/wall/` | Ring image **masters**: 1200×1500 JPGs (`1200x1500_<name>.jpg`, ~12 MB). Not loaded by the homepage. Also the Activision JSON-LD image |
 | `portfolio/ring/` | What the ring actually loads: each project as a 600×750 **AVIF** (quality 55, `600x750_<name>.avif`, ~1.1 MB total) plus a JPG fallback (quality 75, `600x750_<name>.jpg`, ~3.4 MB). `#work-data` lists the `.jpg`; the ring swaps in the `.avif` and falls back to the `.jpg` if the browser can't show it. To add a project: put the master in `portfolio/wall/`, then run both `sips -z 750 600 -s format avif -s formatOptions 55 portfolio/wall/1200x1500_<name>.jpg --out portfolio/ring/600x750_<name>.avif` and `sips -z 750 600 -s format jpeg -s formatOptions 75 portfolio/wall/1200x1500_<name>.jpg --out portfolio/ring/600x750_<name>.jpg`, and add the `.jpg` to `#work-data` |
-| `portfolio/activision/` | Activision case-study images: `activision-1200x1500.jpg`, `activision-1920x1280.jpg` (not placed on `activision.html` yet) |
-| `robots.txt`, `sitemap.xml`, `llms.txt` | SEO / AI-crawler files for https://www.purenine.com. Sitemap lists `/`, `activision.html`, `studio.html`, `contact.html`, `llms.txt` |
+| `portfolio/<project>/` | Per-project images: `<project>-1200x1500.jpg` = homepage grid card (4:5), `<project>-1920x1280.jpg` = lead image on the project page. Folders: `activision/`, `mlb/` |
+| `robots.txt`, `sitemap.xml`, `llms.txt` | SEO / AI-crawler files for https://www.purenine.com. Sitemap lists `/`, `activision.html`, `mlb.html`, `studio.html`, `contact.html`, `llms.txt` |
 
-**Cache busting:** every CSS/JS link in the HTML files has `?v=NNN` (currently `?v=314`). Bump it in **all four** (`index.html`, `activision.html`, `contact.html`, `studio.html`) whenever CSS or JS changes. HTML-only changes don't need a bump.
+**Cache busting:** every CSS/JS link in the HTML files has `?v=NNN` (currently `?v=317`). Bump it in **all five** (`index.html`, `activision.html`, `mlb.html`, `contact.html`, `studio.html`) whenever CSS or JS changes. HTML-only changes don't need a bump.
 
 ---
 
@@ -89,7 +90,7 @@ Logo top-left (desktop: 32px from top, 40px tall, so it ends at 72px; tablet/pho
    - Ring is edge to edge up to **1920px**, then capped and centered.
    - White edge fades (`.ring::before/::after`) appear **only at ≥ 1920px**. They are gradient overlays, **not masks** (masks made Chrome stutter).
 5. **Intro / About** — "PURENINE is the design collective of Thomas Klinger…" in hero lead style (up to 850px, may extend past the 720px column), green-underlined name link to LinkedIn, subtext, client logo ticker (left-to-right): Activision, Disney, Fortnite, HubSpot, Marvel, MLB, NBA, Toast — alphabetical, `#666666`. Heights: wordmarks 26px, Marvel 30, MLB 34, Disney 36, NBA 48.
-6. **Projects grid** — 3 columns (1 on tablet/phone). 6 cards visible; **"View more projects +"** reveals 9 more (15 total). Hidden cards carry `data-more`; the button removes itself after clicking. All cards link to `activision.html`.
+6. **Projects grid** — 3 columns desktop, **2 on tablet**, 1 on phone. 6 cards visible; **"View more projects +"** reveals 9 more (15 total). Hidden cards carry `data-more`; the button removes itself after clicking. Card 1 = **Activision** (→ `activision.html`), card 3 = **MLB** (→ `mlb.html`); the rest are THINGS-era placeholders linking to `activision.html`. Real cards show services under the title in the date slot (`.project__date`), e.g. "UX/UI, Visual Design, Production" / "Art Direction, UX/UI". Hover: image blurs 4px, a **40% black** layer (`.project__media::after`) fades in, and the white logo fades in on top (0.5s).
 7. **Audiomack** (`#studio`, reuses the `.studio` classes) — centered: green pill "Co-Founder / CCO", heading "In 2013, I helped co-found Audiomack…" (Audiomack is a `.name-link` to the App Store page), subtext, then two centered `.head-link`s: "Visit Audiomack" (→ `audiomack.html`, not built yet) and "Download the app" (→ App Store page, new tab). 60px + 40px gap to the showreel image with play button (opens `<dialog>` lightbox), then 4 metrics.
 8. **Services** (ported from jackson) — centered heading "I execute the ideas that build your business — from MVP to enterprise scale." + subtext; list starts 100px below the subtext. Then a hover list:
    - Rows: Visual / Product / Motion / Development, each with `( _0N )` number, big name, right-hand tag pill, description (`.t-h5`), and a mono detail line. First row has no top line and no top padding, so its text starts level with the box.
@@ -106,7 +107,7 @@ Logo top-left (desktop: 32px from top, 40px tall, so it ends at 72px; tablet/pho
 
 ## Other pages
 
-**Project page (`activision.html`)** — own SEO head (title "Activision Case Study: Art Direction & Visual Design - Thomas Klinger", description, keywords, OG/Twitter, CreativeWork + WebPage + Breadcrumb + Person + ProfessionalService JSON-LD; author/publisher tags from the homepage). Homepage nav. Sticky info column (desktop sticks at 120px): title "Activision" (`data-logo-stop` — on desktop the logo only meets it at the end of the page because the column is sticky), intro text, info list: **Client / Agency / Services / Live URL** — labels Chivo Mono 14px uppercase muted, values 16px right-aligned, `--c-border` dividers, 18px row padding. "View Activision Blog" → https://blog.activision.com/ (new tab), regular weight, 2px green underline (5px offset), green on hover, no arrow. Then the image stack (currently empty: the 3 `*-lg.jpg` placeholders were removed; a comment marks where images go) and the footer ("More projects" and the "Have a project in mind?" CTA were removed; their `.more` / `.cta` CSS was deleted Oct 21, 2026). Page transitions: native cross-document View Transitions where supported, otherwise a white 0.4s fade.
+**Project pages (`activision.html`, `mlb.html`)** — same template; to add one, clone `activision.html` and swap the SEO head, text, info list and image. Activision: own SEO head (title "Activision Case Study: Art Direction & Visual Design - Thomas Klinger", description, keywords, OG/Twitter, CreativeWork + WebPage + Breadcrumb + Person + ProfessionalService JSON-LD; author/publisher tags from the homepage). Homepage nav. Sticky info column (desktop sticks at 120px): title "Activision" (`data-logo-stop` — on desktop the logo only meets it at the end of the page because the column is sticky), intro text, info list: **Client / Agency / Services / Live URL** — labels Chivo Mono 14px uppercase muted, values 16px right-aligned, `--c-border` dividers, 18px row padding. "View Activision Blog" → https://blog.activision.com/ (new tab), regular weight, 2px green underline (5px offset), green on hover, no arrow. Then the image stack: the `*-1920x1280.jpg` lead image (inline `aspect-ratio: 1920 / 1280` so it isn't cropped, `fetchpriority="high"`), then a comment marking where more images go (the placeholder "Global Brand Transformation" story block was removed Oct 21, 2026; `.case__story` CSS is now unused) and the footer ("More projects" and the "Have a project in mind?" CTA were removed; their `.more` / `.cta` CSS was deleted Oct 21, 2026). **MLB:** title "Major League Baseball", client Major League Baseball, services UX/UI, Visual Design, Production, Live URL "View MLB.com" → https://www.mlb.com/, two-part intro (league description + deliverables). Agency is a placeholder "—". Page transitions: native cross-document View Transitions where supported, otherwise a white 0.4s fade.
 
 **Contact page (`contact.html`)** — body class `page-contact`. Green pill "Get in touch" (`data-logo-stop`), headline "Got a project in mind? Let's chat and bring it to life." (`.t-h1`, max 600px), `LI / IG / X` on the right, divider line inset to the page margins (`.contact-hero__rule`, fades in with the rest). Below: **EMAIL** label + hello@purenine.com (`.mail-link t-h4`), 40px, **ADDRESS** label + "30 Old Kings Hwy S, Darien, CT 06820" (`.t-h4`). The message form is still in the HTML but **hidden** (`hidden` attribute; `.contact-form[hidden]`); when shown it opens the visitor's mail app (`initContactForm`, no backend). FAQ was removed.
 
@@ -134,7 +135,7 @@ Logo top-left (desktop: 32px from top, 40px tall, so it ends at 72px; tablet/pho
 - When asked "what's the spacing / size here", answer with the exact px and where it comes from, per breakpoint if they differ.
 - Keep things looking like the rest of the site: same fonts, greens, mono labels, divider lines, corner radii.
 - Placeholder content is fine; Thomas swaps in real copy and images himself. Leave clear HTML comments where placeholders are.
-- After each CSS/JS change, bump the `?v=` cache version in all four HTML files.
+- After each CSS/JS change, bump the `?v=` cache version in all five HTML files.
 - **Never `git push`.** Thomas always pushes to GitHub manually. Commit only when asked, then say the commit is ready to push.
 - Report briefly what changed, in plain words, with any side effects (e.g. a shared class affecting two places).
 - **Approved as final (Oct 16, 2026):** the services icon animation (8-bit bob + animated inner parts). Don't change it unless asked.
@@ -148,18 +149,18 @@ There is currently **no `.claude/launch.json`** in the project (it was removed a
 
 ## Hosting (GitHub Pages)
 
-Repo `https://github.com/pure9nine/PURENINE` (public; Pages on private repos needs a paid plan). Pages deploys from branch `main`, folder `/ (root)`. Live at **https://pure9nine.github.io/PURENINE/** (pages: `…/studio.html`, `…/contact.html`, `…/activision.html`). Pushing to `main` redeploys in ~1 min. All asset links must stay **relative** (no leading `/`) because the site lives under the `/PURENINE/` subpath. A page at `folder/index.html` is served at `…/PURENINE/folder/` (its paths need `../`). Because the repo is public, everything in it is visible, including this file.
+Repo `https://github.com/pure9nine/PURENINE` (public; Pages on private repos needs a paid plan). Pages deploys from branch `main`, folder `/ (root)`. Live at **https://pure9nine.github.io/PURENINE/** (pages: `…/studio.html`, `…/contact.html`, `…/activision.html`, `…/mlb.html`). Pushing to `main` redeploys in ~1 min. All asset links must stay **relative** (no leading `/`) because the site lives under the `/PURENINE/` subpath. A page at `folder/index.html` is served at `…/PURENINE/folder/` (its paths need `../`). Because the repo is public, everything in it is visible, including this file.
 
 ---
 
 ## Open items / placeholders before launch
 
 - "Visit Audiomack" links to `audiomack.html`, a portfolio page that isn't built yet.
-- `activision.html` has no project images yet and still uses the THINGS placeholder story text ("Global Brand Transformation").
+- `mlb.html`: Agency row is a placeholder; tab title / SEO still say "MLB" (heading says "Major League Baseball").
 - Studio page: awards list and heading are placeholders.
 - Contact form is hidden and has no backend (opens a mailto when shown).
 - **Template demo content is still live and set to be indexed**: THINGS®/LUNAR+/KROMA… project cards, metrics (3m+, 289, 56, 97%). Replace or `noindex` before publishing.
-- All project cards (15) link to `activision.html`; cards 7–15 repeat the first 6.
+- Only cards 1 (Activision) and 3 (MLB) are real; the other grid cards are placeholders linking to `activision.html`, and cards 7–15 repeat the first 6 (so THINGS/KROMA copies still appear later).
 - Services descriptions/detail lines were written as placeholders.
 - `robots.txt` explicitly allows AI training crawlers (GPTBot, Google-Extended, etc.) — confirm that's intended.
 - Unused assets still in the project: `client-01…08.svg` (old placeholder logos) and `client-history.svg`.

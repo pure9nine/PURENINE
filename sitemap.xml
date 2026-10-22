@@ -13,6 +13,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.purenine.com/mlb.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.purenine.com/studio.html</loc>
     <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>

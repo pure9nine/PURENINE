@@ -867,8 +867,20 @@ button {
 .project:focus-visible .project__media > img:first-child {
   filter: blur(4px);
 }
+/* 40% black between the blurred image and the logo, so the logo reads */
+.project__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
 .project:hover .project__logo,
-.project:focus-visible .project__logo {
+.project:focus-visible .project__logo,
+.project:hover .project__media::after,
+.project:focus-visible .project__media::after {
   opacity: 1;
 }
 .project__footer {
@@ -2056,7 +2068,7 @@ html.is-preloading {
     gap: 16px;
   }
   .projects__grid {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .project__media {
     aspect-ratio: 1200 / 1500;
@@ -2102,6 +2114,9 @@ html.is-preloading {
    Phone (<= 809px)
    ========================================================================== */
 @media (max-width: 809.98px) {
+  .projects__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
   :root {
     --gutter: 16px;
   }
