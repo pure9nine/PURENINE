@@ -523,28 +523,46 @@
     nums.forEach(function (el) { io.observe(el); });
   }
 
-  /* ---------- Showreel lightbox ---------- */
+  /* ---------- Audiomack images: every 3 seconds the current card sinks back
+     and the next rises over it (.is-out / .is-in in CSS); when it lands, the next
+     becomes .is-active. ---------- */
   function initReel() {
-    var dialog = doc.getElementById('reel-dialog');
-    var openBtn = doc.querySelector('[data-reel-open]');
-    if (!dialog || !openBtn || typeof dialog.showModal !== 'function') return;
-    var video = dialog.querySelector('video');
+    var reel = doc.querySelector('[data-reel]');
+    if (!reel || reduceMotion) return;
+    var slides = reel.querySelectorAll('.reel__slide');
+    if (slides.length < 2) return;
+    var SHUFFLE_MS = 700; // matches the CSS animation
+    var current = 0;
+    var busy = false;
+    var inView = false;
 
-    openBtn.addEventListener('click', function () {
-      dialog.showModal();
-      // play() on a clip that has ended starts it again from the beginning
-      var p = video.play();
-      if (p && p.catch) p.catch(function () {});
-    });
-    dialog.querySelector('[data-reel-close]').addEventListener('click', function () {
-      dialog.close();
-    });
-    dialog.addEventListener('click', function (e) {
-      if (e.target === dialog) dialog.close();
-    });
-    dialog.addEventListener('close', function () {
-      video.pause();
-    });
+    function next() {
+      if (busy || doc.hidden || !inView) return;
+      var to = (current + 1) % slides.length;
+      var img = slides[to].querySelector('img');
+      if (!img.complete || !img.naturalWidth) return; // not loaded yet: try again next round
+      var from = slides[current];
+      busy = true;
+      slides[to].classList.add('is-in');
+      from.classList.add('is-out');
+      setTimeout(function () {
+        from.classList.remove('is-active', 'is-out');
+        slides[to].classList.remove('is-in');
+        slides[to].classList.add('is-active');
+        current = to;
+        busy = false;
+      }, SHUFFLE_MS + 50);
+    }
+
+    // Only cycle while the box is on screen
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        inView = entries[0].isIntersecting;
+      }).observe(reel);
+    } else {
+      inView = true;
+    }
+    setInterval(next, 3000);
   }
 
   /* ---------- Projects: "View more" shows the rest of the grid ---------- */

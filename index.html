@@ -46,8 +46,8 @@
   <link rel="preload" href="assets/fonts/InterDisplay-500.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/InterDisplay-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/ChivoMono-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/fonts.css?v=336">
-  <link rel="stylesheet" href="css/style.css?v=336">
+  <link rel="stylesheet" href="css/fonts.css?v=339">
+  <link rel="stylesheet" href="css/style.css?v=339">
   <script>
     (function (d, n) {
       d.classList.add('js');
@@ -583,11 +583,27 @@
         </div>
 
         <div class="studio__body">
-          <div class="reel" data-reveal>
-            <img src="assets/images/showreel.jpg" width="2000" height="1333" loading="lazy" alt="Abstract red liquid lattice — still from the studio showreel">
-            <button class="reel__play" type="button" data-reel-open aria-haspopup="dialog" aria-label="Play showreel">
-              <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M26.4 16c0 .52-.27 1-.71 1.27L11.9 25.7a1.5 1.5 0 0 1-2.28-1.27V7.57a1.5 1.5 0 0 1 2.28-1.27l13.8 8.43c.44.27.71.75.71 1.27Z" fill="#1e1e1e"/></svg>
-            </button>
+          <!-- Audiomack images: every 3s the current card sinks back and the next rises over it (initReel).
+               Add or swap images here: 1920x1280 JPG + AVIF in assets/images/audiomack/ -->
+          <div class="reel" data-reel data-reveal>
+            <div class="reel__stage">
+              <picture class="reel__slide is-active">
+                <source srcset="assets/images/audiomack/1920x1280-audiomack-a.avif" type="image/avif">
+                <img src="assets/images/audiomack/1920x1280-audiomack-a.jpg" width="1920" height="1280" loading="lazy" alt="Audiomack app design">
+              </picture>
+              <picture class="reel__slide">
+                <source srcset="assets/images/audiomack/1920x1280-audiomack-b.avif" type="image/avif">
+                <img src="assets/images/audiomack/1920x1280-audiomack-b.jpg" width="1920" height="1280" loading="lazy" alt="Audiomack app design">
+              </picture>
+              <picture class="reel__slide">
+                <source srcset="assets/images/audiomack/1920x1280-audiomack-c.avif" type="image/avif">
+                <img src="assets/images/audiomack/1920x1280-audiomack-c.jpg" width="1920" height="1280" loading="lazy" alt="Audiomack app design">
+              </picture>
+              <picture class="reel__slide">
+                <source srcset="assets/images/audiomack/1920x1280-audiomack-d.avif" type="image/avif">
+                <img src="assets/images/audiomack/1920x1280-audiomack-d.jpg" width="1920" height="1280" loading="lazy" alt="Audiomack app design">
+              </picture>
+            </div>
           </div>
 
           <ul class="metrics">
@@ -610,11 +626,6 @@
           </ul>
         </div>
       </div>
-
-      <dialog class="lightbox" id="reel-dialog" aria-label="Studio showreel">
-        <button class="lightbox__close" type="button" data-reel-close aria-label="Close video"></button>
-        <video src="assets/video/hero-loop-01.mp4" controls playsinline preload="none"></video>
-      </dialog>
     </section>
 
     <!-- ============================== Services ============================== -->
@@ -785,7 +796,7 @@
     <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
   </div>
 
-  <script type="application/json" id="work-data">[{"t":"Activision","s":"portfolio/ring/600x750_activision.jpg"},{"t":"Activision","s":"portfolio/ring/600x750_activision_2.jpg"},{"t":"Adobe","s":"portfolio/ring/600x750_adobe.jpg"},{"t":"Angel Health","s":"portfolio/ring/600x750_angelhealth.jpg"},{"t":"Audiomack","s":"portfolio/ring/600x750_audiomack.jpg"},{"t":"CenterCheck","s":"portfolio/ring/600x750_centercheck.jpg"},{"t":"Disney","s":"portfolio/ring/600x750_disney.jpg"},{"t":"DJBooth","s":"portfolio/ring/600x750_djbooth.jpg"},{"t":"Fantasy Football App","s":"portfolio/ring/600x750_fl.jpg"},{"t":"Fortnite","s":"portfolio/ring/600x750_fortnite_2.jpg"},{"t":"G4TV","s":"portfolio/ring/600x750_g4tv.jpg"},{"t":"Grublr","s":"portfolio/ring/600x750_grublr.jpg"},{"t":"History","s":"portfolio/ring/600x750_history.jpg"},{"t":"HubSpot","s":"portfolio/ring/600x750_hubspot.jpg"},{"t":"Marvel","s":"portfolio/ring/600x750_marvel.jpg"},{"t":"Marvel S.H.I.E.L.D.","s":"portfolio/ring/600x750_marvel_shield.jpg"},{"t":"Midjourney Mondays","s":"portfolio/ring/600x750_mjm.jpg"},{"t":"MLB","s":"portfolio/ring/600x750_mlb.jpg"},{"t":"NBA","s":"portfolio/ring/600x750_nba_2.jpg"},{"t":"Percept","s":"portfolio/ring/600x750_percept.jpg"},{"t":"PGA Tour","s":"portfolio/ring/600x750_pgatour.jpg"},{"t":"Playlists","s":"portfolio/ring/600x750_playlists.jpg"},{"t":"Riddd","s":"portfolio/ring/600x750_riddd.jpg"},{"t":"The Smurfs","s":"portfolio/ring/600x750_smurfs.jpg"},{"t":"Toast","s":"portfolio/ring/600x750_toast_2.jpg"},{"t":"Warlock","s":"portfolio/ring/600x750_warlock.jpg"}]</script>
-  <script src="js/main.js?v=336" defer></script>
+  <script type="application/json" id="work-data">[{"t":"Activision","s":"portfolio/ring/600x750_activision.jpg"},{"t":"Activision","s":"portfolio/ring/600x750_activision_2.jpg"},{"t":"Adobe","s":"portfolio/ring/600x750_adobe.jpg"},{"t":"Angel Health","s":"portfolio/ring/600x750_angelhealth.jpg"},{"t":"Audiomack","s":"portfolio/ring/600x750_audiomack.jpg"},{"t":"CenterCheck","s":"portfolio/ring/600x750_centercheck.jpg"},{"t":"Disney","s":"portfolio/ring/600x750_disney.jpg"},{"t":"DJBooth","s":"portfolio/ring/600x750_djbooth.jpg"},{"t":"Earthright","s":"portfolio/ring/600x750_earthright.jpg"},{"t":"Fantasy Football App","s":"portfolio/ring/600x750_fl.jpg"},{"t":"Fortnite","s":"portfolio/ring/600x750_fortnite_2.jpg"},{"t":"G4TV","s":"portfolio/ring/600x750_g4tv.jpg"},{"t":"Grublr","s":"portfolio/ring/600x750_grublr.jpg"},{"t":"History","s":"portfolio/ring/600x750_history.jpg"},{"t":"HubSpot","s":"portfolio/ring/600x750_hubspot.jpg"},{"t":"Marvel","s":"portfolio/ring/600x750_marvel.jpg"},{"t":"Marvel S.H.I.E.L.D.","s":"portfolio/ring/600x750_marvel_shield.jpg"},{"t":"Midjourney Mondays","s":"portfolio/ring/600x750_mjm.jpg"},{"t":"MLB","s":"portfolio/ring/600x750_mlb.jpg"},{"t":"NBA","s":"portfolio/ring/600x750_nba_2.jpg"},{"t":"Percept","s":"portfolio/ring/600x750_percept.jpg"},{"t":"PGA Tour","s":"portfolio/ring/600x750_pgatour.jpg"},{"t":"Playlists","s":"portfolio/ring/600x750_playlists.jpg"},{"t":"Riddd","s":"portfolio/ring/600x750_riddd.jpg"},{"t":"The Smurfs","s":"portfolio/ring/600x750_smurfs.jpg"},{"t":"Toast","s":"portfolio/ring/600x750_toast_2.jpg"},{"t":"Warlock","s":"portfolio/ring/600x750_warlock.jpg"}]</script>
+  <script src="js/main.js?v=339" defer></script>
 </body>
 </html>

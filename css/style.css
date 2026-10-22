@@ -1019,35 +1019,50 @@ button {
   border-radius: 40px;
   overflow: hidden;
 }
-.reel > img {
+/* Audiomack images: stacked cards, the active one on top. Every 3s (initReel) the
+   current card (.is-out) sinks back and the next (.is-in) rises over it, then the
+   next becomes .is-active. Transform + opacity only. */
+.reel__stage {
   position: absolute;
   inset: 0;
+  background: var(--c-surface);
+  transition: transform 1.2s var(--ease-out);
+}
+.reel:hover .reel__stage {
+  transform: scale(1.03);
+}
+.reel__slide {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  border-radius: 40px;
+  opacity: 0;
+}
+.reel__slide.is-active,
+.reel__slide.is-out {
+  z-index: 1;
+  opacity: 1;
+}
+.reel__slide.is-in {
+  z-index: 2;
+  opacity: 1;
+  animation: shuffle-in 0.7s var(--ease-out) both;
+}
+.reel__slide.is-out {
+  animation: shuffle-out 0.7s var(--ease-out) both;
+}
+.reel__slide img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 1.2s var(--ease-out);
 }
-.reel:hover > img {
-  transform: scale(1.03);
+@keyframes shuffle-out {
+  to { transform: scale(0.86) translateY(-3%); opacity: 0.4; }
 }
-.reel__play {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 120px;
-  height: 120px;
-  border-radius: 100px;
-  background: rgba(255, 255, 255, 0.9);
-  transition: transform 0.5s var(--ease-out), background-color 0.3s ease;
-}
-.reel__play:hover {
-  transform: scale(1.08);
-  background: #fff;
-}
-.reel__play svg {
-  width: 32px;
-  height: 32px;
+@keyframes shuffle-in {
+  from { transform: translateY(105%) scale(0.96); }
 }
 .metrics {
   display: flex;
@@ -1084,53 +1099,6 @@ button {
 }
 .metric__value .num {
   font-variant-numeric: tabular-nums;
-}
-
-/* Lightbox */
-.lightbox {
-  width: min(1200px, calc(100vw - 32px));
-  max-width: none;
-  max-height: none;
-  padding: 0;
-  border: 0;
-  border-radius: 24px;
-  background: #000;
-  overflow: hidden;
-}
-.lightbox::backdrop {
-  background: rgba(30, 30, 30, 0.6);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-}
-.lightbox video {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-}
-.lightbox__close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 2;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
-}
-.lightbox__close::before,
-.lightbox__close::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 18px;
-  height: 2px;
-  margin: -1px 0 0 -9px;
-  background: var(--c-text);
-  transform: rotate(45deg);
-}
-.lightbox__close::after {
-  transform: rotate(-45deg);
 }
 
 /* ==========================================================================
@@ -2086,14 +2054,6 @@ html.is-preloading {
   .reel {
     aspect-ratio: 952 / 750;
   }
-  .reel__play {
-    width: 60px;
-    height: 60px;
-  }
-  .reel__play svg {
-    width: 20px;
-    height: 20px;
-  }
   .metrics {
     flex-direction: column;
     width: 100%;
@@ -2225,14 +2185,6 @@ html.is-preloading {
   .reel {
     aspect-ratio: 358 / 494;
   }
-  .reel__play {
-    width: 40px;
-    height: 40px;
-  }
-  .reel__play svg {
-    width: 14px;
-    height: 14px;
-  }
   .metrics {
     max-width: none;
   }
@@ -2269,12 +2221,6 @@ html.is-preloading {
 }
 .is-blink .nav.is-open {
   background-color: #131313;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-}
-
-.is-blink .lightbox::backdrop {
-  background: rgba(30, 30, 30, 0.85);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
