@@ -371,11 +371,6 @@ button {
   visibility: hidden;
   transition: opacity 0.4s ease, visibility 0s linear 0.4s;
 }
-/* Project pages: the logo never fades, it stays fixed at the top left */
-.page-inner .nav.is-past-wall .nav__logo {
-  opacity: 1;
-  visibility: visible;
-}
 
 /* Hamburger: three thin bars; the outer two cross into an X when open */
 .nav__toggle {
@@ -1821,54 +1816,6 @@ button {
   max-width: 550px;
   padding: 32px 0;
 }
-.more {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  padding-bottom: 160px;
-}
-.more__grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px 16px;
-}
-.more .project__media {
-  aspect-ratio: 1200 / 1500;
-}
-.cta {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  padding-bottom: 160px;
-  text-align: center;
-}
-.cta__title {
-  max-width: 420px;
-}
-.cta .t-body {
-  max-width: 420px;
-}
-.cta__btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 52px;
-  padding: 0 28px;
-  border-radius: 12px;
-  background: var(--c-text);
-  color: #fff;
-  font-weight: 500;
-  font-size: 17.6px;
-  letter-spacing: -0.02em;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-.cta__btn:hover {
-  background: #000;
-}
-.cta__btn:active {
-  transform: scale(0.98);
-}
 @media (max-width: 1199.98px) {
   .case {
     grid-template-columns: minmax(0, 1fr);
@@ -1883,15 +1830,6 @@ button {
   .case {
     padding-top: 96px;
     padding-bottom: 80px;
-  }
-  .more {
-    padding-bottom: 96px;
-  }
-  .more__grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .cta {
-    padding-bottom: 96px;
   }
 }
 
@@ -2690,8 +2628,6 @@ html.is-preloading {
     font-size: 18px;
   }
 }
-/* .award__title was removed from the HTML (no longer used) */
-.award__title,
 .award__date {
   font-size: 14.08px;
   line-height: 1.4;
