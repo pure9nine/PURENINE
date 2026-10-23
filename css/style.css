@@ -1089,6 +1089,17 @@ button {
 }
 .metric .t-body {
   line-height: 20px;
+  color: #777777;
+}
+/* Black icon in a green circle above each number (32px icon + 16px padding = 64px circle) */
+.metric__icon {
+  box-sizing: content-box;
+  width: 32px;
+  height: 32px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background: #c8e611;
 }
 /* "#1": a little looser than the other numbers */
 .metric__value .metric__rank {
@@ -1394,40 +1405,17 @@ button {
    same width and corner radius as the showreel, with 280px inside top and bottom */
 .notes {
   padding-top: 160px; /* services → client notes */
-  padding-bottom: var(--section-gap);
+  padding-bottom: 160px; /* client notes → press */
 }
-/* Pale green gradient panel (from Gradient2.svg with its 30% white layer baked in: #edffba at the top-left to #f9ffe9
-   at 71%, toward the bottom-right). The gradient sits on an oversized layer that
-   drifts slowly back and forth, so the light shifts across the panel. Transform only. */
+/* Flat light grey panel */
 .notes__box {
   position: relative;
   isolation: isolate;
   overflow: hidden;
   padding: 160px 32px;
   border-radius: 40px;
-  background: #f9ffe9;
-  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.12);
+  background: #f4f4f4;
   color: var(--c-text);
-}
-.notes__box::before {
-  content: "";
-  position: absolute;
-  inset: -50%;
-  z-index: -1;
-  background: linear-gradient(133deg, #edffba 0%, #edffba 20%, #f9ffe9 62%, #f9ffe9 100%);
-  animation: notes-glow 12s ease-in-out infinite alternate;
-  will-change: transform;
-}
-@keyframes notes-glow {
-  0%   { transform: translate(-12%, -10%) rotate(0deg); }
-  100% { transform: translate(12%, 10%) rotate(8deg); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .notes__box::before {
-    animation: none;
-    background: linear-gradient(133deg, #edffba 0%, #f9ffe9 71%);
-    inset: 0;
-  }
 }
 @media (max-width: 809.98px) {
   .notes__box {
@@ -1543,6 +1531,11 @@ button {
   flex-direction: column;
   gap: 44px;
   padding-bottom: 160px; /* journal → footer */
+}
+/* "Let's talk!" link under the press list, same style as "View more projects +" */
+.journal__cta {
+  display: flex;
+  justify-content: center;
 }
 .journal__head {
   display: flex;
