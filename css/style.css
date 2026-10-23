@@ -660,7 +660,7 @@ button {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
-/* White fades over both ends (as on the Bungee template), only once the
+/* White fades over both ends, only once the
    window is wider than the ring's 1920px cap. Plain gradient overlays, not a
    mask: masking the animating 3D scene would make Chrome re-rasterize it
    every frame. */
@@ -1114,7 +1114,6 @@ button {
 
 /* ==========================================================================
    Services: hover a row to open it; the picture beside it follows
-   (ported from the jackson build, light theme)
    ========================================================================== */
 .services {
   padding-top: var(--section-gap);
@@ -1399,7 +1398,7 @@ button {
 }
 
 /* ==========================================================================
-   Client notes: one quote at a time, rotating (ported from the jackson build)
+   Client notes: one quote at a time, rotating
    ========================================================================== */
 /* The usual 240px gap above and below; the quote sits in a dark panel the
    same width and corner radius as the showreel, with 280px inside top and bottom */
@@ -1524,7 +1523,7 @@ button {
 }
 
 /* ==========================================================================
-   Journal (ported from the jackson build)
+   Journal (Press / In the News)
    ========================================================================== */
 .journal {
   display: flex;
@@ -1713,7 +1712,7 @@ button {
 }
 
 /* ==========================================================================
-   Project page (inner.html) — layout measured from bungee.framer.website/projects/things
+   Project pages (activision.html, mlb.html)
    ========================================================================== */
 .case {
   display: grid;
@@ -2242,7 +2241,7 @@ html.is-preloading {
 }
 
 /* ==========================================================================
-   Contact page (contact.html) — layout follows bungee.framer.website/contact
+   Contact page (contact.html)
    ========================================================================== */
 .contact-hero {
   display: flex;
@@ -2253,7 +2252,7 @@ html.is-preloading {
   padding-top: 136px;
   padding-bottom: 32px;
 }
-/* Divider line stops at the page margins, as on the Bungee page; fades in with the rest */
+/* Divider line stops at the page margins; fades in with the rest */
 .contact-hero__rule {
   position: absolute;
   left: var(--gutter);
@@ -2392,7 +2391,7 @@ html.is-preloading {
 }
 
 /* ==========================================================================
-   Studio page (studio.html) — layout follows bungee.framer.website/about
+   Studio page (studio.html)
    ========================================================================== */
 /* Full-height rounded video panel with the intro line centered in white */
 /* 40px between the bottom of the header logo and the top of the video
