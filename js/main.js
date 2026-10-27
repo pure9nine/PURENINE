@@ -19,6 +19,7 @@
     var logo = nav.querySelector('.nav__logo');
     // The logo fades as it reaches the homepage clock, or any element marked data-logo-stop (contact page label)
     var clock = doc.querySelector('[data-logo-stop]') || doc.querySelector('.clock');
+    var caseTitle = doc.querySelector('.case__title');
     var FADE_GAP = 24; // start fading this many px before the logo reaches the clock
 
     function onScroll() {
@@ -29,6 +30,10 @@
       } else if (logo) {
         // Pages without the hero clock (project pages): switch once the page is scrolled a little
         nav.classList.toggle('is-past-wall', window.scrollY > 80);
+        // Project pages: the logo itself only fades once the (sticky) title scrolls up into it at the page end
+        if (caseTitle) {
+          nav.classList.toggle('is-logo-out', caseTitle.getBoundingClientRect().top <= logo.getBoundingClientRect().bottom + FADE_GAP);
+        }
       }
     }
 

@@ -371,6 +371,15 @@ button {
   visibility: hidden;
   transition: opacity 0.4s ease, visibility 0s linear 0.4s;
 }
+/* Project pages, desktop: the left column is sticky, so the logo stays (only the hamburger turns green)
+   until the title scrolls up into it at the end of the page (.is-logo-out) */
+@media (min-width: 1200px) {
+  .page-case .nav.is-past-wall:not(.is-open):not(.is-logo-out) .nav__logo {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease, visibility 0s linear 0s;
+  }
+}
 
 /* Hamburger: three thin bars; the outer two cross into an X when open */
 .nav__toggle {
@@ -1742,9 +1751,6 @@ button {
   gap: 24px;
   padding: 18px 0;
   border-top: 1px solid var(--c-border);
-}
-.case__meta > div:last-child {
-  border-bottom: 1px solid var(--c-border);
 }
 .case__meta dt {
   flex: none;
