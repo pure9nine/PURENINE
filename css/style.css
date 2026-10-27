@@ -846,7 +846,7 @@ button {
   background: var(--c-surface);
   isolation: isolate;
 }
-.project__media > img:first-child {
+.project__media img:not(.project__logo) {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -863,8 +863,8 @@ button {
   opacity: 0;
   transition: opacity 0.5s ease;
 }
-.project:hover .project__media > img:first-child,
-.project:focus-visible .project__media > img:first-child {
+.project:hover .project__media img:not(.project__logo),
+.project:focus-visible .project__media img:not(.project__logo) {
   filter: blur(4px);
 }
 /* 40% black between the blurred image and the logo, so the logo reads */
@@ -1785,6 +1785,11 @@ button {
   overflow: hidden;
   background: var(--c-surface);
 }
+/* <picture> wrappers (AVIF + JPG fallback) add no box of their own */
+.case__img picture,
+.project__media > picture {
+  display: contents;
+}
 .case__img img {
   display: block;
   width: 100%;
@@ -2217,8 +2222,8 @@ html.is-preloading {
   backdrop-filter: none;
 }
 /* hover: dim instead of blur so the project logo still reads */
-.is-blink .project:hover .project__media > img:first-child,
-.is-blink .project:focus-visible .project__media > img:first-child {
+.is-blink .project:hover .project__media img:not(.project__logo),
+.is-blink .project:focus-visible .project__media img:not(.project__logo) {
   filter: brightness(0.72);
 }
 
