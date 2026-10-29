@@ -794,7 +794,7 @@ button {
 .intro__text {
   text-align: center;
 }
-/* Same style as the hero lead "I bring ideas to life…" (56 / 52 tablet / 36 phone).
+/* Same style as the hero lead "I bring ideas to life…" (56 / 52 tablet / 30 phone).
    Up to 850px wide like the hero lead; centered, it may reach past the 720px column. */
 .intro .intro__text {
   width: min(850px, calc(100vw - var(--gutter) * 2));
@@ -1141,7 +1141,7 @@ button {
   text-align: center;
 }
 .studio__title.t-h3 {
-  font-size: 56px; /* same style as the hero lead (52 tablet, 36 phone) */
+  font-size: 56px; /* same style as the hero lead (52 tablet, 30 phone) */
   line-height: 1.05;
   letter-spacing: -0.03em;
 }
@@ -1251,6 +1251,7 @@ button {
 .service__spec {
   color: var(--c-text);
   white-space: normal;
+  line-height: 1.6; /* more air when the line wraps (phone) */
 }
 .services__photo {
   position: relative;
@@ -1398,11 +1399,34 @@ button {
     order: -1;
     aspect-ratio: 4 / 3;
   }
+  /* Phone: number, name and tag stack instead of sharing one line */
+  .service__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .service__num {
+    width: auto;
+    padding-bottom: 0;
+  }
   .service__name {
+    flex: none;
     font-size: 44px;
   }
+  /* Closed rows: no side padding, so the plain text lines up with the name;
+     the open row's pill gets its 10px back */
   .service__tag {
+    margin-bottom: 0;
+    padding-inline: 0;
     font-size: 12px;
+    transition: background-color 0.7s var(--ease-out), padding 0.7s var(--ease-out);
+  }
+  .service.is-active .service__tag {
+    padding-inline: 10px;
+  }
+  .service__panel-inner {
+    padding-top: 16px;
+    padding-left: 0;
   }
 }
 
@@ -1426,6 +1450,9 @@ button {
   color: var(--c-text);
 }
 @media (max-width: 809.98px) {
+  .notes {
+    padding-top: 80px; /* half the desktop gap below the services list */
+  }
   .notes__box {
     padding: 96px 20px;
   }
@@ -1616,6 +1643,7 @@ button {
 @media (max-width: 809.98px) {
   .journal {
     gap: 32px;
+    padding-bottom: 80px; /* half the desktop gap to the footer */
   }
   .journal__head {
     flex-direction: column;
@@ -1628,12 +1656,13 @@ button {
   .article__num {
     display: none;
   }
+  /* Same 3:2 shape as desktop's 150×100 (and the 960×640 images), so nothing is cropped */
   .article__thumb {
     width: 96px;
-    height: 96px;
+    height: 64px;
   }
   .article__title {
-    font-size: 24px;
+    font-size: 16px;
   }
 }
 
@@ -1824,6 +1853,9 @@ button {
   .case {
     padding-top: 96px;
     padding-bottom: 80px;
+  }
+  .case__media {
+    gap: 40px; /* half the 80px between images */
   }
 }
 
@@ -2140,16 +2172,30 @@ html.is-preloading {
     padding-top: 64px;
   }
   .hero__lead,
+  .studio__title.t-h3 {
+    font-size: 30px;
+  }
+  .intro .intro__text,
+  .note__quote.t-h3 {
+    font-size: 28px;
+  }
+  /* A little more air between lines than desktop's 1.05 */
+  .hero__lead,
   .studio__title.t-h3,
   .intro .intro__text {
-    font-size: 36px;
+    line-height: 1.15;
+  }
+  .hero__sub,
+  .intro__sub,
+  .studio__sub {
+    font-size: 16px;
   }
 
   .hero__head {
     gap: 24px;
   }
   .hero__carousel {
-    gap: 50px;
+    gap: 32px;
   }
   .ring {
     --card-w: 200px;
@@ -2161,13 +2207,18 @@ html.is-preloading {
 
 
   /* Intro */
+  /* Logo strip → first project card: 58px from the bottom of the 26px logos
+     (32 left inside the 90px ticker + the projects' 26px top padding), half the old 116px */
   .intro {
-    padding: 32px var(--gutter);
+    padding: 32px var(--gutter) 0;
     scroll-margin-top: -8px;
   }
   .intro__inner {
     gap: 16px;
-    padding: 20px 16px;
+    padding: 20px 0 0; /* no side padding: lines up with the hero at the 16px gutter */
+  }
+  .projects {
+    padding-top: 26px;
   }
   .ticker--logos .ticker__track,
   .ticker--logos .ticker__set {
@@ -2180,14 +2231,46 @@ html.is-preloading {
   }
   .project__media {
     aspect-ratio: 1200 / 1500;
+    border-radius: 24px;
+  }
+
+  /* Half the desktop section gap: View more → Audiomack → services */
+  :root {
+    --section-gap: 120px;
   }
 
   /* Studio */
+  /* 14px margin + the 32px gap = 46px from the links down to the image box */
+  .studio__head {
+    margin-bottom: 14px;
+  }
+
+  /* Phone: hero, About, Audiomack and Services headings left-aligned (trial, Oct 29, 2026) */
+  .hero__head,
+  .intro__inner,
+  .studio__head {
+    align-items: flex-start;
+  }
+  .hero__lead,
+  .hero__sub,
+  .intro__text,
+  .intro__sub,
+  .studio__head,
+  .studio__title,
+  .studio__sub {
+    margin-inline: 0;
+    text-align: left;
+  }
+  .hero__head .pill,
+  .studio .pill {
+    align-self: flex-start;
+  }
   .studio__inner {
     gap: 32px;
   }
+  /* Same 3:2 shape as the 1920×1280 images, so nothing is cropped */
   .reel {
-    aspect-ratio: 358 / 494;
+    aspect-ratio: 1920 / 1280;
   }
   .metrics {
     max-width: none;
@@ -2396,6 +2479,9 @@ html.is-preloading {
     flex-direction: column;
     align-items: flex-start;
     padding-top: 104px;
+  }
+  .contact-hero__title.t-h1 {
+    font-size: 42px;
   }
   .contact-body {
     padding-bottom: 96px;
@@ -2633,15 +2719,31 @@ html.is-preloading {
     aspect-ratio: 4 / 5;
     border-radius: 24px;
   }
+  /* Phone: headline, subtext and button left-aligned */
   .studio-hero__content {
+    align-items: flex-start;
     gap: 28px;
     margin: 32px 20px;
   }
+  .studio-hero__title,
+  .studio-hero__sub {
+    text-align: left;
+  }
   .studio-hero__title {
-    font-size: 28px;
+    font-size: 23px;
   }
   .studio-hero__sub {
     margin-top: -12px; /* 16px under the headline (gap is 28px here) */
+    font-size: 18px;
+    line-height: 1.35;
+  }
+  /* Pill and heading left-aligned */
+  .awards__head {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .awards__head .pill {
+    align-self: flex-start;
   }
   .awards {
     gap: 40px;
@@ -2654,6 +2756,7 @@ html.is-preloading {
     gap: 4px 16px;
   }
   .award__date {
+    color: #777777; /* same grey as the subtext */
     text-align: left;
   }
 }
