@@ -1024,7 +1024,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 1376 / 836;
+  /* Same 4:3 shape as the 1200×900 collages, so nothing is cropped (all breakpoints) */
+  aspect-ratio: 1200 / 900;
   border-radius: 40px;
   overflow: hidden;
 }
@@ -2083,9 +2084,6 @@ html.is-preloading {
   .project__media {
     aspect-ratio: 1200 / 1500;
   }
-  .reel {
-    aspect-ratio: 952 / 750;
-  }
   .metrics {
     flex-direction: column;
     width: 100%;
@@ -2263,10 +2261,6 @@ html.is-preloading {
   }
   .studio__inner {
     gap: 32px;
-  }
-  /* Same 3:2 shape as the 1920×1280 images, so nothing is cropped */
-  .reel {
-    aspect-ratio: 1920 / 1280;
   }
   .metrics {
     max-width: none;

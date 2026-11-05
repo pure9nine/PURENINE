@@ -146,8 +146,8 @@
   <link rel="preload" href="assets/fonts/InterDisplay-500.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/InterDisplay-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/ChivoMono-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/fonts.css?v=416">
-  <link rel="stylesheet" href="css/style.css?v=416">
+  <link rel="stylesheet" href="css/fonts.css?v=418">
+  <link rel="stylesheet" href="css/style.css?v=418">
   <script>
     (function (d, n) {
       d.classList.add('js');
@@ -230,14 +230,15 @@
 
       <!-- Right: image stack -->
       <div class="case__media">
-        <!-- Placeholder images: the four Audiomack card-shuffle images from the homepage (1920x1280). Swap in portfolio/audiomack/audiomack-1200x900_N.jpg when ready -->
-        <figure class="case__img" style="aspect-ratio: 1920 / 1280">
+        <!-- Real project images (1200x900) alternate with three of the homepage card-shuffle images (1920x1280), kept as placeholders until more real images exist -->
+        <figure class="case__img" style="aspect-ratio: 1200 / 900">
           <picture>
-            <source type="image/avif" srcset="assets/images/audiomack/1920x1280-audiomack-a.avif">
-            <img src="assets/images/audiomack/1920x1280-audiomack-a.jpg" width="1920" height="1280" fetchpriority="high" alt="Audiomack product design">
+            <source type="image/avif" srcset="portfolio/audiomack/audiomack-1200x900_1-960.avif 960w, portfolio/audiomack/audiomack-1200x900_1.avif 1200w" sizes="(max-width: 809px) calc(100vw - 32px), (max-width: 1199px) calc(100vw - 48px), min(996px, calc(100vw - 588px))">
+            <img src="portfolio/audiomack/audiomack-1200x900_1.jpg" width="1200" height="900" fetchpriority="high" alt="Audiomack brand identity, typography and visual design">
           </picture>
         </figure>
 
+        <!-- Placeholder: homepage card-shuffle image -->
         <figure class="case__img" style="aspect-ratio: 1920 / 1280" data-reveal>
           <picture>
             <source type="image/avif" srcset="assets/images/audiomack/1920x1280-audiomack-b.avif">
@@ -245,6 +246,14 @@
           </picture>
         </figure>
 
+        <figure class="case__img" style="aspect-ratio: 1200 / 900" data-reveal>
+          <picture>
+            <source type="image/avif" srcset="portfolio/audiomack/audiomack-1200x900_2-960.avif 960w, portfolio/audiomack/audiomack-1200x900_2.avif 1200w" sizes="(max-width: 809px) calc(100vw - 32px), (max-width: 1199px) calc(100vw - 48px), min(996px, calc(100vw - 588px))">
+            <img src="portfolio/audiomack/audiomack-1200x900_2.jpg" width="1200" height="900" loading="lazy" alt="Audiomack desktop web interface screens">
+          </picture>
+        </figure>
+
+        <!-- Placeholder: homepage card-shuffle image -->
         <figure class="case__img" style="aspect-ratio: 1920 / 1280" data-reveal>
           <picture>
             <source type="image/avif" srcset="assets/images/audiomack/1920x1280-audiomack-c.avif">
@@ -252,6 +261,14 @@
           </picture>
         </figure>
 
+        <figure class="case__img" style="aspect-ratio: 1200 / 900" data-reveal>
+          <picture>
+            <source type="image/avif" srcset="portfolio/audiomack/audiomack-1200x900_3-960.avif 960w, portfolio/audiomack/audiomack-1200x900_3.avif 1200w" sizes="(max-width: 809px) calc(100vw - 32px), (max-width: 1199px) calc(100vw - 48px), min(996px, calc(100vw - 588px))">
+            <img src="portfolio/audiomack/audiomack-1200x900_3.jpg" width="1200" height="900" loading="lazy" alt="Audiomack mobile app interface screens">
+          </picture>
+        </figure>
+
+        <!-- Placeholder: homepage card-shuffle image -->
         <figure class="case__img" style="aspect-ratio: 1920 / 1280" data-reveal>
           <picture>
             <source type="image/avif" srcset="assets/images/audiomack/1920x1280-audiomack-d.avif">
@@ -291,6 +308,6 @@
     <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
   </div>
 
-  <script src="js/main.js?v=416" defer></script>
+  <script src="js/main.js?v=418" defer></script>
 </body>
 </html>
