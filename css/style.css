@@ -1026,9 +1026,9 @@ button {
   justify-content: center;
   /* Same 4:3 shape as the 1200×900 collages, so nothing is cropped (all breakpoints) */
   aspect-ratio: 1200 / 900;
-  /* Capped at 1280px and centered; narrower than the 1456px page column */
+  /* Capped at 1200px and centered; narrower than the 1456px page column */
   width: 100%;
-  max-width: 1280px;
+  max-width: 1200px;
   margin-inline: auto;
   border-radius: 40px;
   overflow: hidden;
@@ -1081,9 +1081,9 @@ button {
 .metrics {
   display: flex;
   justify-content: space-between;
-  /* Same 1280px cap as the box above, so the row lines up and the 80px inset reads as intended */
+  /* Same 1200px cap as the box above, so the row lines up and the 80px inset reads as intended */
   width: 100%;
-  max-width: 1280px;
+  max-width: 1200px;
   margin-inline: auto;
   padding-inline: 80px;
 }
