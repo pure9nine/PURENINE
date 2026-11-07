@@ -1081,11 +1081,11 @@ button {
 .metrics {
   display: flex;
   justify-content: space-between;
-  /* Same 1200px cap as the box above, so the row lines up and the 80px inset reads as intended */
+  /* Same 1200px cap as the box above; 40px inset, and space-between spreads the rest between the four */
   width: 100%;
   max-width: 1200px;
   margin-inline: auto;
-  padding-inline: 80px;
+  padding-inline: 40px;
 }
 .metric {
   display: flex;
@@ -2097,6 +2097,7 @@ html.is-preloading {
     width: 100%;
     max-width: 810px;
     margin-inline: auto;
+    padding-inline: 80px; /* stacked rows keep the old 80px inset (desktop is 40px) */
   }
   .metric {
     width: 100%;
