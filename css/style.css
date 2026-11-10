@@ -910,19 +910,8 @@ button {
   gap: 2px;
   color: var(--c-muted);
 }
-/* "View more": cards 7–15 wait until the button is clicked. Without JS the
-   button is hidden and every card shows. */
-.js .projects__grid:not(.is-expanded) > [data-more] {
-  display: none;
-}
-.projects__more {
-  display: none;
-}
-.js .projects__more {
-  display: flex;
-  justify-content: center;
-}
-/* Plain text button: "View more +"; turns green on rollover like the other links */
+/* Big text link, green underline, turns green on rollover like the other links.
+   Used by the press section's "Have a project? Let's chat" CTA. */
 .projects__more-btn {
   padding: 16px 28px;
   font-weight: 500;
@@ -1836,13 +1825,6 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-.case__story {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  max-width: 550px;
-  padding: 32px 0;
 }
 @media (max-width: 1199.98px) {
   .case {

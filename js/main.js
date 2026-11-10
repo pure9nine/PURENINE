@@ -570,23 +570,6 @@
     setInterval(next, 3000);
   }
 
-  /* ---------- Projects: "View more" shows the rest of the grid ---------- */
-  function initProjectsMore() {
-    var btn = doc.querySelector('[data-projects-more]');
-    if (!btn) return;
-    var grid = doc.getElementById(btn.getAttribute('aria-controls'));
-    if (!grid) return;
-    btn.addEventListener('click', function () {
-      // The new cards rise in through the usual scroll reveal as they appear
-      grid.classList.add('is-expanded');
-      btn.setAttribute('aria-expanded', 'true');
-      // Everything is showing now: keyboard focus moves on to the first new card
-      var first = grid.querySelector('[data-more] a');
-      if (first) first.focus({ preventScroll: true });
-      btn.parentNode.remove();
-    });
-  }
-
   /* ---------- Services: hovering, tapping or tabbing to a row opens it ---------- */
   function initServices() {
     var box = doc.querySelector('[data-services]');
@@ -802,7 +785,6 @@
   initPreloader(function () { setTimeout(initReveal, 250); });
   initCounters();
   initReel();
-  initProjectsMore();
   initServices();
   initContactForm();
   initNotes();
