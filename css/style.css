@@ -815,6 +815,14 @@ button {
   color: #777777;
   text-align: center;
 }
+/* "I'm Thomas Klinger" link in the subtext: site black, green on hover */
+.hero__sub .name-link {
+  color: var(--c-text);
+}
+.hero__sub .name-link:hover,
+.hero__sub .name-link:focus-visible {
+  color: #ceeb21;
+}
 .intro .ticker {
   width: 100%;
 }

@@ -38,7 +38,7 @@ Portfolio site for **Thomas Klinger / PURENINE** (freelance creative director, U
 | *(every HTML page `<head>`)* | Google Analytics GA4 `gtag.js` snippet, Measurement ID `G-1FW40TCJGP`, right after `<meta charset>` (added Nov 11, 2026). See "Hosting → Google Analytics" |
 | `app-ads.txt` | One-line ad-seller authorization file for the Audiomack/app ads, served at `/app-ads.txt` (added Nov 11, 2026; Framer used to redirect to a gist). Don't move or rename it. See "Hosting" |
 
-**Cache busting:** every CSS/JS link in the HTML files has `?v=NNN` (currently `?v=425`). Bump it in **all ten** (`index.html`, `activision.html`, `mlb.html`, `fortnite.html`, `audiomack.html`, `toast.html`, `nba.html`, `contact.html`, `studio.html`, `ridddle-privacy.html`) whenever CSS or JS changes. HTML-only changes don't need a bump.
+**Cache busting:** every CSS/JS link in the HTML files has `?v=NNN` (currently `?v=426`). Bump it in **all ten** (`index.html`, `activision.html`, `mlb.html`, `fortnite.html`, `audiomack.html`, `toast.html`, `nba.html`, `contact.html`, `studio.html`, `ridddle-privacy.html`) whenever CSS or JS changes. HTML-only changes don't need a bump.
 
 ---
 
