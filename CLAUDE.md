@@ -21,7 +21,7 @@ Portfolio site for **Thomas Klinger / PURENINE** (freelance creative director, U
 | `css/style.css` | All styles. Breakpoints: desktop ≥ 1200px · tablet 810–1199px · phone ≤ 809px. Page sections are at the end: Project pages, Contact page, Studio page |
 | `css/fonts.css` | `@font-face` rules pointing at `assets/fonts/*.woff2` (switched from base64 on Oct 21, 2026 for PageSpeed). Every page preloads Inter Display 500/400 + Chivo Mono in `<head>`. Safari on `file://` shows fallback fonts — preview through a local server |
 | `js/main.js` | All interactions, one IIFE, ES5 style (`var`, `function`), no dependencies |
-| `assets/fonts/*.woff2` | The web font files, loaded by `fonts.css`. Only 400/500/700 exist — there is **no 600** |
+| `assets/fonts/*.woff2` | The web font files, loaded by `fonts.css`. Inter Display 400/500/**600**/700 exist (`InterDisplay-600.woff2` added Nov 11, 2026 — the Latin subset of Inter Display SemiBold from the official `inter-ui@4.0.2` npm package, `display-latin/InterDisplay-SemiBold-subset.woff2`, 27 KB like the others; used only by the hero "I'm Thomas Klinger" link). Before it existed, asking for 600 just rendered 700. Inter is 500 only, Chivo Mono 400 only |
 | `assets/icons/client-*.svg` | Ticker logos in use: `activision`, `disney`, `fortnite`, `hubspot`, `marvel`, `mlb`, `nba`, `toast` (all from Wikimedia Commons, public domain, recolored to `#666666`, white cut-outs kept). The old `client-01…08.svg` / `client-history.svg` placeholders were deleted Nov 10, 2026 |
 | `assets/icons/` (other) | Project logos shown on card hover — one per real project, nothing else (`logo-*.svg`; `logo-activision.svg`, `logo-mlb.svg`, `logo-fortnite.svg`, `logo-toast.svg` (Nov 8, 2026) are white copies of the ticker logos — MLB's batter and ball are cut out with a mask; `logo-nba.svg` (Nov 10, 2026) is the **horizontal NBA lockup**, built from `client-nba.svg`: the badge (silhouette and ball knocked out with a mask, no letters inside) plus the badge's own "NBA" letters set beside it at the full height of the badge, with a gap of 13.5% of that height — proportions measured off the lockup in `portfolio/nba/nba-1200x900_2.jpg`. It is 3999.73 × 2078.81 (aspect 1.924), so it lands at 83 × 43 in the card's logo box. **Watch out:** in a masked group the `transform` must sit on an inner `<g>`, not on the element carrying `mask=`, or the mask is interpreted in the translated space and lands off-canvas. `logo-audiomack.svg` is the Audiomack wordmark from Wikipedia's `Audiomack_logo.svg`, recolored white), service icons (`service-visual/product/motion/dev.svg` — kept as the source art; the versions the page uses are inlined into `index.html`), Audiomack metric icons (`metric-uploads` music note, `metric-listeners` waveform, `metric-app` App Store, `metric-paid` microphone; black, recolored from the originals) |
 | `assets/images/services/` | Services box gradients: `visual-bg.jpg` (green), `product-bg.jpg` (peach), `motion-bg.jpg` (blue), `development-bg.jpg` (lavender) |
@@ -38,14 +38,14 @@ Portfolio site for **Thomas Klinger / PURENINE** (freelance creative director, U
 | *(every HTML page `<head>`)* | Google Analytics GA4 `gtag.js` snippet, Measurement ID `G-1FW40TCJGP`, right after `<meta charset>` (added Nov 11, 2026). See "Hosting → Google Analytics" |
 | `app-ads.txt` | One-line ad-seller authorization file for the Audiomack/app ads, served at `/app-ads.txt` (added Nov 11, 2026; Framer used to redirect to a gist). Don't move or rename it. See "Hosting" |
 
-**Cache busting:** every CSS/JS link in the HTML files has `?v=NNN` (currently `?v=426`). Bump it in **all ten** (`index.html`, `activision.html`, `mlb.html`, `fortnite.html`, `audiomack.html`, `toast.html`, `nba.html`, `contact.html`, `studio.html`, `ridddle-privacy.html`) whenever CSS or JS changes. HTML-only changes don't need a bump.
+**Cache busting:** every CSS/JS link in the HTML files has `?v=NNN` (currently `?v=428`). Bump it in **all ten** (`index.html`, `activision.html`, `mlb.html`, `fortnite.html`, `audiomack.html`, `toast.html`, `nba.html`, `contact.html`, `studio.html`, `ridddle-privacy.html`) whenever CSS or JS changes. HTML-only changes don't need a bump.
 
 ---
 
 ## Design system
 
 **Fonts**
-- `--f-display`: Inter Display (400/500/700) — almost everything
+- `--f-display`: Inter Display (400/500/600/700) — almost everything (600 only on the hero "I'm Thomas Klinger" link)
 - `--f-inter`: Inter 500 — metric numbers
 - `--f-mono`: Chivo Mono 400 — small uppercase labels, numbers like `( _01 )`
 
