@@ -28,7 +28,7 @@ Portfolio site for **Thomas Klinger / PURENINE** (freelance creative director, U
 | `assets/images/press/` | Press thumbs: `fastcompany.jpg`, `forbes.jpg`, `billboard.jpg` (960×640) |
 | `assets/images/quotes-bg.jpg` | Dark work-collage (1920×1080, 284.4px tile grid) behind the studio intro (no longer used by the homepage quotes) |
 | `assets/images/audiomack/` | Old Audiomack mockups: `1920x1280-audiomack-b…d.jpg` + `.avif` copies (quality 55, made with `sips -s format avif -s formatOptions 55 <file>.jpg --out <file>.avif`). These were the homepage card shuffle until Nov 5, 2026, when it moved to the `portfolio/audiomack/` collages. `b`, `c` and `d` are still placeholders in the `audiomack.html` image stack; `a` was deleted Nov 10, 2026 |
-| `assets/images/` (other) | `og-image.jpg` (social share image used in the SEO tags) |
+| `assets/images/` (other) | `og-image.jpg` (social share image used in the SEO tags, 1200×630; since Nov 11, 2026 it is a center crop of `quotes-bg.jpg` — 1920×1008 cut from the middle, resized — it was a red-and-pink abstract image before. To regenerate: `sips -c 1008 1920 -s format jpeg -s formatOptions 85 assets/images/quotes-bg.jpg --out og.jpg`, then `sips -z 630 1200 og.jpg`, and copy over `og-image.jpg`. Link-preview caches (Slack, iMessage, LinkedIn, X) may keep showing the old image for a while) |
 | `assets/favicon/` | `favicon.jpg` (tab icon), `apple-touch-icon.png` (also the JSON-LD logo) |
 | `assets/video/` | `preloader-signature.mp4` (loader signature) — the only video left |
 | `portfolio/wall/` | Ring image **masters**: 1200×1500 JPGs (`1200x1500_<name>.jpg`, ~12 MB). Not loaded by the homepage. Also the Activision JSON-LD image |
