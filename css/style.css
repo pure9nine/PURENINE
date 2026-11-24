@@ -1997,9 +1997,10 @@ html.is-preloading {
 /* While the 3D ring is on screen the blur is turned off: re-blurring an
    animating 3D scene through 8 masked layers every frame is what made
    Chrome stutter (Safari copes, Chrome doesn't). */
-/* Homepage: no bottom blur at all (Nov 24, 2026). Other pages keep it. */
-.page-home .bottom-blur {
-  display: none;
+/* Bottom blur turned off on every page (Nov 24, 2026). The markup and the rules below
+   are kept, so deleting this one rule brings it back. */
+.bottom-blur {
+  display: none !important;
 }
 .ring-in-view .bottom-blur {
   opacity: 0;
